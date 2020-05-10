@@ -5,7 +5,6 @@
     <title>Money? What's that?</title>
     <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
-    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="./content/css/main.css"/>
   </head>
   <body>
@@ -20,9 +19,6 @@
       </div>
       <input id="btnCalc" type="button" value="Calculate"/>
       <input class="textInput" id="grossWk" type="text" readonly>
-
-  <script src="./node_modules/jquery/dist/jquery.js"></script>
-  <script src="./node_modules/@popperjs/core/dist/umd/popper.js"></script>
-  <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./renderer.js"></script>
   </body>
 </html>

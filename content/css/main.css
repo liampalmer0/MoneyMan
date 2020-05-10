@@ -1,21 +1,102 @@
+@font-face{
+  font-family: montserrat;
+  src: url(../fonts/Montserrat/Montserrat-Regular.ttf)
+}
+@font-face{
+  font-family: montserrat-thin;
+  src: url(../fonts/Montserrat/Montserrat-Thin.ttf)
+}
 body {
-  background-color: #dadada;
+  font-family: montserrat-thin;
+  background-color: #DADADA;
   box-sizing: border-box;
 }
 h1 {
   margin: .5em 0em .25em 0em;
 }
 .grid-wrapper {
+  max-width: 32em;
   padding:1em;
   background-color: #99ABBB;
   display: grid;
-  grid-template-columns: 10em repeat(1, 1fr) ;
+  grid-template-columns: 15em repeat(1, 1fr) ;
+  border-radius: 20px;
+}
+#inputGrid {
+  font-family: montserrat;
+  margin-bottom: 1em;
+}
+#outputGrid {
+  font-family: montserrat;
+  margin-bottom: 1em;
+}
+
+button {
+  outline: none;
+  font-family: montserrat;
+  font-size: 1em;
+  text-align:center;
+  border-radius: 20px;
+  border:none;
+  padding: 0.5em;
+  margin:1em 0.4em;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+#btnCalc {
+  background-color: #559955;
+  color: #FFFFFF;
+  grid-column: 1 / span 2;
+  max-width: 30em;
+}
+
+#btnCalc:active { 
+  background-color: #448844;
+}
+
+#btnAdd, #btnRm {
+  background-color: #555555;
+  color: #FFFFFF;
+  max-width: 15em;
+}
+
+#btnAdd:active, #btnRm:active{
+  background-color: #383838;
+}
+
+input[type="text"] {
+  font-family: montserrat;
+  font-size: 1em;
+  background-color: #DADADA;
+  color: #383838;
+  outline:none;
+  border:none;
+  border-radius: 20px;
+  padding: 0.5em;
+  margin:1em 0.4em;
+}
+input[type="text"]:focus {
+  border-radius: 20px;
+  color: black;
+  background-color: rgb(218, 216, 164);
+}
+#expenses {
+  grid-column: 1 / span 2;
 }
 .textLabel {
   margin: .8em 0em;
+  padding: 0.5em;
 }
 .textInput {
+  width: 15em;
+  padding: 0.5em;
+  margin: 1em 0em 1em 2em;
+}
+.outputLabel {
   width: 12em;
   padding: 0em;
-  margin: 1em 0em;
+  margin: 1em 0em 1em 2em;
 }

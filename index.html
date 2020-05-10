@@ -9,16 +9,47 @@
   </head>
   <body>
     <h1>Can I afford this life?</h1>
-      <div class="grid-wrapper">
+      <div class="grid-wrapper" id="inputGrid">
         <label class="textLabel" for="rate">Hourly Rate : </label>
-        <input class="textInput" id="rate" type="text" name="rate" maxlength="5"/>
+        <input class="textInput" id="rate" type="text" name="rate" maxlength="5" value="0.00"/>
+
         <label class="textLabel" for="rate">Hours per Week : </label>
-        <input class="textInput" id="hours" type="text" name="hours" maxlength="3"/>
-        <label class="textLabel" for="rate">Tax Rate : </label>
-        <input class="textInput" id="tax" type="text" name="tax" maxlength="5"/>
+        <input class="textInput" id="hours" type="text" name="hours" maxlength="3" value="0.00"/>
+
+        <label class="textLabel" for="rate">Tax Rate (%) : </label>
+        <input class="textInput" id="tax" type="text" name="tax" maxlength="5" value="0.00"/>
+        <div id="expenses">
+          <!--Expense nodes added here-->
+        </div>
+
+        <button id="btnAdd">Add Expense</button>
+        <button id="btnRm">Remove Expense</button>
+        <button id="btnCalc">Calculate</button>
+
       </div>
-      <input id="btnCalc" type="button" value="Calculate"/>
-      <input class="textInput" id="grossWk" type="text" readonly>
+
+      <div class="grid-wrapper" id="outputGrid">
+        <label class="textLabel"">Gross Weekly: </label>
+        <label class="outputLabel" id="grossWk">$0.00</label>
+        <label class="textLabel"">Gross Weekly After Tax: </label>
+        <label class="outputLabel" id="grossWkAT">$0.00</label>
+
+        <label class="textLabel"">Gross Monthly : </label>
+        <label class="outputLabel" id="grossMn">$0.00</label>
+        <label class="textLabel"">Gross Monthly After Tax : </label>
+        <label class="outputLabel" id="grossMnAT">$0.00</label>
+
+        <label class="textLabel"">Net Monthly : </label>
+        <label class="outputLabel" id="netMonth">$0.00</label>
+
+        <label class="textLabel"">Gross Yearly : </label>
+        <label class="outputLabel" id="grossYr">$0.00</label>
+        <label class="textLabel"">Gross Yearly After Tax : </label>
+        <label class="outputLabel" id="grossYrAT">$0.00</label>
+
+      </div>
+
     <script src="./renderer.js"></script>
+
   </body>
 </html>

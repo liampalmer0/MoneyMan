@@ -41,12 +41,3 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
-
-//Idk how this all works
-// document.querySelector("#btnCalc").on("click", calculate);
-
-// function calculate() {
-//   //set gross weekly val to (rate*hours) * (100-tax)/100
-//   var grosswk = (document.querySelector("#rate").val() * document.querySelector("#hours").val()) * ((100 - document.querySelector("#tax").val() / 100));
-//   document.querySelector("#grossWk").value = "hello";
-// }

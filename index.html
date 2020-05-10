@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Money? What's that?</title>
+    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="./content/css/main.css"/>
+  </head>
+  <body>
+    <h1>Can I afford this life?</h1>
+      <div class="grid-wrapper">
+        <label class="textLabel" for="rate">Hourly Rate : </label>
+        <input class="textInput" id="rate" type="text" name="rate" maxlength="5"/>
+        <label class="textLabel" for="rate">Hours per Week : </label>
+        <input class="textInput" id="hours" type="text" name="hours" maxlength="3"/>
+        <label class="textLabel" for="rate">Tax Rate : </label>
+        <input class="textInput" id="tax" type="text" name="tax" maxlength="5"/>
+      </div>
+      <input id="btnCalc" type="button" value="Calculate"/>
+      <input class="textInput" id="grossWk" type="text" readonly>
+
+  <script src="./node_modules/jquery/dist/jquery.js"></script>
+  <script src="./node_modules/@popperjs/core/dist/umd/popper.js"></script>
+  <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>

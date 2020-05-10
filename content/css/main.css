@@ -1,0 +1,21 @@
+body {
+  background-color: #dadada;
+  box-sizing: border-box;
+}
+h1 {
+  margin: .5em 0em .25em 0em;
+}
+.grid-wrapper {
+  padding:1em;
+  background-color: #99ABBB;
+  display: grid;
+  grid-template-columns: 10em repeat(1, 1fr) ;
+}
+.textLabel {
+  margin: .8em 0em;
+}
+.textInput {
+  width: 12em;
+  padding: 0em;
+  margin: 1em 0em;
+}

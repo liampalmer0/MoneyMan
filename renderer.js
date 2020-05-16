@@ -5,26 +5,35 @@
 //   myNotification.onclick = () => {
 //     console.log('Notification clicked')
 //   }
-var $ = require("jquery");
-$(document).ready( () => {
-  console.log("Ready")
-});
+
+class Expense {
+  constructor(name, amount) {
+    this.name = name;
+    this.amount = amount;
+  }
+}
 
 const currency = new Intl.NumberFormat('en-US',
-  { style: 'currency', currency: 'USD',
-    minimumFractionDigits: 2 });
+{ style: 'currency', currency: 'USD',
+minimumFractionDigits: 2 });
 const weeksInMonth = 4.35;
 const weeksInYear = 52;
 
-// document.querySelector("#btnCalc").onclick = () => {calcAndDisplay()};
+var $ = require("jquery");
+var expenses = [];
+
+$(document).ready( () => {
+  console.log("Ready")
+});
+$("#btnAdd").click(() => {addExpense()});
 $("#btnCalc").click(() => {calcAndDisplay()});
-// document.querySelector("#scopeChoice").onchange = () => {switchScope()};
 $("#scopeChoice").change(() => {switchScope()});
+
 function calcAndDisplay() {
   //set gross weekly val to (rate*hours) * (100-tax)/100
-  let afterTax = ((100 - document.querySelector("#tax").value) / 100);
+  let afterTax = ((100 - $("#tax").val()) / 100);
 
-  let grossWk = (document.querySelector("#rate").value * document.querySelector("#hours").value);
+  let grossWk = ($("#rate").val() * $("#hours").val());
   if(isNaN(grossWk))
     grossWk = 0;
   let grossWkAfTax = grossWk * afterTax;
@@ -35,19 +44,17 @@ function calcAndDisplay() {
   let grossYear = grossWk * weeksInYear; 
   let grossYearAftTax = grossYear * afterTax;
   
-  document.querySelector("#grossWk").innerHTML = currency.format(grossWk);
-  document.querySelector("#grossWkAT").innerHTML = currency.format(grossWkAfTax);
+  $("#grossWk").html(currency.format(grossWk));
+  $("#grossWkAT").html(currency.format(grossWkAfTax));
 
-  document.querySelector("#grossMn").innerHTML = currency.format(grossMonth);
-  document.querySelector("#grossMnAT").innerHTML = currency.format(grossMonthAftTax);
+  $("#grossMn").html(currency.format(grossMonth));
+  $("#grossMnAT").html(currency.format(grossMonthAftTax));
 
-  document.querySelector("#grossYr").innerHTML = currency.format(grossYear);
-  document.querySelector("#grossYrAT").innerHTML = currency.format(grossYearAftTax);
+  $("#grossYr").html(currency.format(grossYear));
+  $("#grossYrAT").html(currency.format(grossYearAftTax));
 }
 function switchScope() { 
   let target = $("#outputGrid");
-  console.log("trigger");
-  console.log(target);
   var show = $("#scopeChoice").prop("selectedIndex");
   $(target).children().addClass("hide");
   switch (show) {
@@ -67,15 +74,26 @@ function switchScope() {
 }
 
 function sumExpenses() {
-  let expenses = 0;
-  return expenses;
+  let expSum = 0
+  expenses.forEach((expense) => {
+    expSum += expense.amount;
+    console.log(expense);
+  })
+  
+  return expSum;
 }
 
 function addExpense() {
-
+  console.log("@ addExpense()")
+  expenses.push(new Expense("Gasoline", "500"));
+  sumExpenses();
 }
 
 function rmSelectedExpenses() {
 
+}
+
+function save() {
+  console.log("not done");
 }
 

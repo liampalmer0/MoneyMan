@@ -18,13 +18,24 @@
 
         <label class="textLabel" for="rate">Tax Rate (%) : </label>
         <input class="textInput" id="tax" type="text" name="tax" maxlength="5" value="0.00"/>
-        <div id="expenses">
+        
+        <label class="textLabel singleCol">Expenses : </label>
+        <div id="expenseList" class="">
           <!--Expense nodes added here-->
+          <!-- Covert this to a simple banded table -->
+          <!-- maybe use the datatables API idk -->
+          <div class="expenseItem">
+            <input type="checkbox" class="expenseCheck"/>
+            <input type="text" class="expenseField" placeholder="name"/>
+            <input type="text" class="expenseField" placeholder="amount"/>
+          </div>
         </div>
         
-        <button id="btnAdd">Add Expense</button>
-        <button id="btnRm">Remove Expense</button>
-        <button id="btnCalc">Calculate</button>
+        <div class="splitCol">
+          <button id="btnAdd">Add Expense</button>
+          <button id="btnRm">Remove Expense</button>
+        </div>
+        <button id="btnCalc" class="singleCol">Calculate</button>
         
         <label class="textLabel" for="scopeChoice">Output Scope : </label>
         <select id="scopeChoice" class="textInput select">
@@ -58,6 +69,7 @@
           <label class="outputLabel" id="grossYrAT">$0.00</label>
         </div>
       </div>
+      <button onclick="save()">Save</button>
 
     <script src="./renderer.js"></script>
   </body>

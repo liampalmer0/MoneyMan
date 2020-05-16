@@ -16,31 +16,28 @@
   </div>
   <div class="grid-wrapper" id="inputGrid">
     <label class="textLabel" for="rate">Hourly Rate : </label>
-    <input class="textInput" id="rate" type="text" name="rate" maxlength="5" value="0.00" />
+    <input id="rate" type="number" name="rate" maxlength="5" value="0.00" />
 
     <label class="textLabel" for="rate">Hours per Week : </label>
-    <input class="textInput" id="hours" type="text" name="hours" maxlength="3" value="0.00" />
+    <input id="hours" type="number" name="hours" maxlength="3" value="0.00" />
 
     <label class="textLabel" for="rate">Tax Rate (%) : </label>
-    <input class="textInput" id="tax" type="text" name="tax" maxlength="5" value="0.00" />
-
+    <input id="tax" type="number" name="tax" maxlength="5" value="0.00" />
     <label class="textLabel singleCol">Expenses : </label>
     <div id="expenseList" class="">
       <!--Expense nodes added here-->
-      <!-- Covert this to a simple banded table -->
-      <!-- maybe use the datatables API idk -->
       <div class="expenseItem">
-        <input type="text" class="expenseField" name="tst0-Name" placeholder="name" />
-        <input type="number" class="expenseField" name="tst0-Amt" placeholder="amount" />
-        <button class="circleBtn btnRemove" name="tst0"><img src="content/img/font-awesome-icons/times-solid.svg"/></button>
+        <input type="text" class="expenseField" name="tst0-name" placeholder="name" />
+        <input type="number" class="expenseField" name="tst0-amt" placeholder="amount" />
+        <button class="imgBtn btnRm" name="tst0"><img src="content/img/font-awesome-icons/times-solid.svg"/></button>
       </div>
       <div class="expenseItem">
-        <input type="text" class="expenseField" placeholder="name" />
-        <input type="number" class="expenseField" placeholder="amount" />
-        <button class="circleBtn btnRemove"><img src="content/img/font-awesome-icons/times-solid.svg"/></button>
+        <input type="text" class="expenseField" name="tst1-name" placeholder="name" />
+        <input type="number" class="expenseField" name="tst1-amt" placeholder="amount" />
+        <button class="imgBtn btnRm" name="tst1"><img src="content/img/font-awesome-icons/times-solid.svg"/></button>
       </div>
     </div>
-
+    
     <div class="singleCol">
       <button id="btnAdd">Add Expense</button>
       <!-- <button id="btnRm">Remove Expense</button> -->

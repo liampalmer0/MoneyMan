@@ -7,10 +7,10 @@
 //   }
 
 class Expense {
-  constructor(expid, name, amount) {
-    this.expid = expid;
+  constructor(id, name, amount) {
+    this.id = id;
     this.name = name;
-    this.amount = amount;
+    this.amt = amount;
   }
 }
 
@@ -22,46 +22,29 @@ const weeksInYear = 52;
 
 var $ = require("jquery");
 var expenses = [];
-var expenseIndex = 0;
+var expIndex = 0;
 
-$(document).ready( () => {
-  console.log("Ready")
-});
-$("#btnAdd").click(() => {addExpense()});
-$("#btnAdd").click(() => {rmSelectedExpenses()});
-$("#btnCalc").click(() => {calcAndDisplay()});
-$("#scopeChoice").change(() => {switchScope()});
-$(".btnRemove").click((e) => {
-  //this target is an img inside of a btn
-  console.log("target is:" + e.target.parentNode.name);
-  rmExpense(e);
-})
-$(".expenseField").change((event) => {
-  //this target is a text input
-  console.log("target is:" + event.target.name);
-  updateExpData(event);
-})
+
 function calcAndDisplay() {
-  //set gross weekly val to (rate*hours) * (100-tax)/100
-  let afterTax = ((100 - $("#tax").val()) / 100);
-
+  let inverseTax = ((100 - $("#tax").val()) / 100);  
+  
   let grossWk = ($("#rate").val() * $("#hours").val());
   if(isNaN(grossWk))
-    grossWk = 0;
-  let grossWkAfTax = grossWk * afterTax;
+  grossWk = 0;
+  let grossWkAfTax = grossWk * inverseTax;
   
   let grossMonth = grossWk * weeksInMonth;
-  let grossMonthAftTax = grossMonth * afterTax;
+  let grossMonthAftTax = grossMonth * inverseTax;
   
   let grossYear = grossWk * weeksInYear; 
-  let grossYearAftTax = grossYear * afterTax;
+  let grossYearAftTax = grossYear * inverseTax;
   
   $("#grossWk").html(currency.format(grossWk));
   $("#grossWkAT").html(currency.format(grossWkAfTax));
-
+  
   $("#grossMn").html(currency.format(grossMonth));
   $("#grossMnAT").html(currency.format(grossMonthAftTax));
-
+  
   $("#grossYr").html(currency.format(grossYear));
   $("#grossYrAT").html(currency.format(grossYearAftTax));
 }
@@ -82,50 +65,92 @@ function switchScope() {
     default:
       $(target).children().removeClass("hide");
       break;
+    }
   }
-}
-
+        
 function sumExpenses() {
   console.log("@ sumExpenses()")
   let expSum = 0
   expenses.forEach((expense) => {
     expSum += expense.amount;
     console.log(expense);
-  })
-  
+  });
   return expSum;
 }
-
+        
 function addExpense() {
   console.log("@ addExpense()")
-  //determine id (first 3 letter of name + index)
-  // at this point it will be unk0
-  //create div.expenseItem
-  //create input:text.expenseField name=id+"-name" placeholder="name"
-  //create input:number.expenseField name=id+"-amount" placeholder="amount"
-  //create btn name=id
-  //expenses.push(new Expense("unk0","unknown", "0"));
+  let rowId = "row" + expIndex;
+  let insertPoint = $("#expenseList");
+  
+  //expenseItem
+  let expenseItem = $("<div></div>", {
+    "class": "expenseItem",
+  });
+  
+  //name input
+  $("<input/>", {
+    "class": "expenseField",
+    type: "text",
+    name: rowId + "-name",
+    placeholder: "name",
+    on: {change: (e) => {updateExpData(e)}}
+  }).appendTo(expenseItem);
+  
+  //amount input
+  $("<input/>", {
+    "class": "expenseField",
+    type: "number",
+    name: rowId + "-amt",
+    placeholder: "amount",
+    on: {change: (e) => {updateExpData(e)}}
+  }).appendTo(expenseItem);
+  
+  //remove img
+  let ximg = $("<img/>", {
+    src: "content/img/font-awesome-icons/times-solid.svg",
+    on: {click: (e) => {rmExpense(e)}}
+  });
+
+  //remove button
+  $("<button></button>", {
+    "class": "imgBtn btnRm",
+    name: rowId,
+    html: ximg
+  }).appendTo(expenseItem);
+  
+  insertPoint.append(expenseItem);
+  expIndex++;
+  expenses.push(new Expense(rowId,"unknown", "0"));
   //sumExpenses();
 }
-
+        
 function updateExpData(event) {
-  //get target name from event
-  //parse out the ID
-  
-  //if name field
-  //  
-  //else
-  //  
-  //if target dne in expenseList
-  //
-  //  expenses.push(new)
+  console.log("@ updateExpData()");
+  let target = event.target;
+  let value = $(target).val();
+  let rowId = target.name.slice(0,4);
+  let type = target.name.slice(5);
+  console.log("RowId : " + rowId);
+  console.log("Type : " + type);
+  console.log("Value : " + value);
+
+  if(type === "name" || type === "amt") {
+    let r = expenses.find(({ id }) => id === rowId);
+    r[type] = (r.id === rowId) ? value : r.name; 
+  }
+  else {
+    console.log("Error: target type not recognized");
+  }
+  console.log(expenses);
 }
 
-function rmSelectedExpenses() {
-  console.log("@ rmSelectedExpenses()")
-}
 function rmExpense(event) {
-  console.log("@ rmExpense()")
+  console.log("@ rmExpense()");
+  $(event.target).closest(".expenseItem").remove();
+  let index = expenses.findIndex(({ id }) => id === event.target.name);
+  expenses.splice(index, 1);
+  console.log("removed : " + event.target.parentNode.name);
 }
 function save() {
   console.log("@ save()")
@@ -134,4 +159,11 @@ function save() {
   //if w/out amounts -> use 0
 }
 
-
+$("#btnAdd").click(() => { addExpense() });
+$("#btnCalc").click(() => { calcAndDisplay() });
+$("#scopeChoice").change(() => { switchScope() });
+$(".btnRm").click((e) => { rmExpense(e) });
+$(".expenseField").change((e) => { updateExpData(e) });
+        
+        
+        

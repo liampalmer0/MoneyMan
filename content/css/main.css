@@ -18,8 +18,8 @@ h1 {
 
 .grid-wrapper {
   font-family: montserrat;
-  min-width: 25em;
-  max-width: 32em;
+  min-width: 32em;
+  max-width: 50em;
   padding:1em;
   background-color: #99ABBB;
   display: grid;
@@ -28,7 +28,7 @@ h1 {
   margin-bottom: 1em;
 }
 #outputGrid {
-  grid-template-columns: repeat(1, 1fr);
+  grid-template-columns: 1fr;
 }
 
 button {
@@ -51,11 +51,11 @@ button:hover {
 #btnCalc:active { 
   background-color: #448844;
 }
-#btnAdd, #btnRm {
+#btnAdd{
   background-color: #555555;
   color: #FFFFFF;
 }
-#btnAdd:active, #btnRm:active{
+#btnAdd:active{
   background-color: #383838;
 }
 
@@ -81,8 +81,7 @@ input[type="text"]:focus {
 }
 .splitCol {
   display: grid;
-  grid-column: 1 / span 2;
-  grid-template-columns: repeat(2, 2fr);
+  grid-template-columns: repeat(2, 1fr);
 }
 #expenseList {
   display: grid;
@@ -90,24 +89,25 @@ input[type="text"]:focus {
 }
 .expenseItem {
   display: grid;
-  grid-template-columns: 50% repeat(1, 1fr) 5%;
+  grid-template-columns: 10fr 9fr 1fr;
 }
 .expenseField {
-
+  min-width: 12em;
 }
-.expenseCheck {
-  width: 100%;
-  height: 100%;
-}
-.circleBtn {
-  background-color: #99ABBB;
+.imgBtn{
+  background-color:transparent;
   border: none;
+  padding:0em;
   margin:1em 0em;
   color:#383838;
   outline: none;
 }
-.circleBtn:hover {
+.imgBtn:hover {
   cursor: pointer;
+}
+.imgBtn > img {
+  width: 1em;
+  height:auto;
 }
 .textLabel {
   margin: .8em 0em;

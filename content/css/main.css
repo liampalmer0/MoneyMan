@@ -59,7 +59,7 @@ button:hover {
   background-color: #383838;
 }
 
-input[type="text"], #scopeChoice{
+input[type="text"], input[type="number"], #scopeChoice{
   font-family: montserrat;
   font-size: 1em;
   background-color: #DADADA;
@@ -90,7 +90,7 @@ input[type="text"]:focus {
 }
 .expenseItem {
   display: grid;
-  grid-template-columns: 5% 45% repeat(1, 1fr);
+  grid-template-columns: 50% repeat(1, 1fr) 5%;
 }
 .expenseField {
 
@@ -98,6 +98,16 @@ input[type="text"]:focus {
 .expenseCheck {
   width: 100%;
   height: 100%;
+}
+.circleBtn {
+  background-color: #99ABBB;
+  border: none;
+  margin:1em 0em;
+  color:#383838;
+  outline: none;
+}
+.circleBtn:hover {
+  cursor: pointer;
 }
 .textLabel {
   margin: .8em 0em;

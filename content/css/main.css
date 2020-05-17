@@ -8,27 +8,43 @@
 }
 body {
   font-family: montserrat-thin;
-  background-color: #DADADA;
+  background-color: #F7F7F7;
   box-sizing: border-box;
   font-size: .9em;
+  margin: 0em;
+  min-width: 32em;
+
 }
 h1 {
-  margin: .5em 0em .25em 0em;
+  margin:0em;
+}
+.appHead {
+  background-color:#e0e0e0;
+  color:black;
+  margin-bottom: .8em;
+  padding: 1em 2em;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  text-align: center;
 }
 
 .grid-wrapper {
   font-family: montserrat;
   min-width: 32em;
-  max-width: 50em;
   padding:1em;
-  background-color: #99ABBB;
+  background-color: #e9e9e9;
   display: grid;
   grid-template-columns: 35% repeat(1, 1fr);
   border-radius: 20px;
+  margin: 0em 1em;
+}
+#inputGrid {
   margin-bottom: 1em;
 }
 #outputGrid {
   grid-template-columns: 1fr;
+  background-color: transparent;
+  padding:0em;
 }
 
 button {
@@ -40,40 +56,52 @@ button {
   border:none;
   padding: 0.5em;
   margin:1em 0.4em;
+  max-height: 3em;
 }
 button:hover {
   cursor: pointer;
 }
 #btnCalc {
-  background-color: #559955;
-  color: #FFFFFF;
+  background-color: #84ce99;
+  color: #000000;
+  /* color:#FFFFFF; */
 }
 #btnCalc:active { 
-  background-color: #448844;
+  background-color: #74b686;
 }
 #btnAdd{
-  background-color: #555555;
-  color: #FFFFFF;
+  background-color: #84cebe;
+  color: #000000;
 }
 #btnAdd:active{
-  background-color: #383838;
+  background-color: #79bdae;
+}
+#btnSave {
+  background-color: #84b9ce;
+  color:black;
+  /* max-width: 15em; */
+}
+#btnSave:active{
+  background-color: #78a8bb;
 }
 
 input[type="text"], input[type="number"], #scopeChoice{
   font-family: montserrat;
   font-size: 1em;
-  background-color: #DADADA;
+  background-color: #FAFAFA;
   color: #383838;
   outline:none;
-  border:none;
+  border:1px #E0E0E0 solid;
   border-radius: 20px;
   padding: 0.5em 1em;
   margin: 1em 0.4em;
+  max-height: 1.5em;
+  min-height: 1em;
 }
-input[type="text"]:focus {
+input[type="text"]:focus, input[type="number"]:focus {
   border-radius: 20px;
   color: black;
-  background-color: rgb(218, 216, 164);
+  background-color: #fff8d3;
 }
 .singleCol {
   display: grid;
@@ -82,6 +110,10 @@ input[type="text"]:focus {
 .splitCol {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+}
+.trisplitCol {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 #expenseList {
   display: grid;
@@ -121,7 +153,19 @@ input[type="text"]:focus {
 .outputWk, .outputMn, .outputYr{
   display: grid;
   grid-template-columns: 15em repeat(1, 1fr);
+  margin: 0em 0em 1em 0em;
+  background-color: #e9e9e9;
+  padding: 1em;
+  border-radius: 20px;
+  max-height: 15em;
 }
 .hide {
   display: none;
+}
+
+@media (max-width: 888px) {
+  #breakpoint{ 
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

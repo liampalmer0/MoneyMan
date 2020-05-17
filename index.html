@@ -4,51 +4,42 @@
 <head>
   <meta charset="UTF-8">
   <title>Money? What's that?</title>
-  <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
   <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
   <link rel="stylesheet" type="text/css" href="./content/css/main.css" />
 </head>
 
 <body>
-  <div class="splitCol">
-    <h1>Can I afford this life?</h1>
-    <button onclick="save()">Save</button>
+  <div class=" appHead">
+    <h1>Spending Planner</h1>
   </div>
+  <div id="breakpoint" class="splitCol">
   <div class="grid-wrapper" id="inputGrid">
     <label class="textLabel" for="rate">Hourly Rate : </label>
-    <input id="rate" type="number" name="rate" maxlength="5" value="0.00" />
+    <input id="rate" type="number" name="rate" value="0" />
 
     <label class="textLabel" for="rate">Hours per Week : </label>
-    <input id="hours" type="number" name="hours" maxlength="3" value="0.00" />
+    <input id="hours" type="number" name="hours" value="0" />
 
     <label class="textLabel" for="rate">Tax Rate (%) : </label>
-    <input id="tax" type="number" name="tax" maxlength="5" value="0.00" />
-    <label class="textLabel singleCol">Expenses : </label>
-    <div id="expenseList" class="">
+    <input id="tax" type="number" name="tax" value="0" />
+    <label class="textLabel singleCol">Monthly Expenses : </label>
+    <div id="expenseList">
       <!--Expense nodes added here-->
-      <div class="expenseItem">
-        <input type="text" class="expenseField" name="tst0-name" placeholder="name" />
-        <input type="number" class="expenseField" name="tst0-amt" placeholder="amount" />
-        <button class="imgBtn btnRm" name="tst0"><img src="content/img/font-awesome-icons/times-solid.svg"/></button>
-      </div>
-      <div class="expenseItem">
-        <input type="text" class="expenseField" name="tst1-name" placeholder="name" />
-        <input type="number" class="expenseField" name="tst1-amt" placeholder="amount" />
-        <button class="imgBtn btnRm" name="tst1"><img src="content/img/font-awesome-icons/times-solid.svg"/></button>
-      </div>
     </div>
     
     <div class="singleCol">
-      <button id="btnAdd">Add Expense</button>
-      <!-- <button id="btnRm">Remove Expense</button> -->
+      <div class="trisplitCol">
+        <button id="btnSave">Save</button>
+        <button id="btnAdd">Add Expense</button>
+        <button id="btnCalc">Calculate</button>
+      </div>
     </div>
-    <button id="btnCalc" class="singleCol">Calculate</button>
-
+    
     <label class="textLabel" for="scopeChoice">Output Scope : </label>
     <select id="scopeChoice" class="textInput select">
-      <option value="wk">Weekly</option>
-      <option value="mn">Monthly</option>
-      <option value="yr">Yearly</option>
+      <option value="Wk">Weekly</option>
+      <option value="Mn">Monthly</option>
+      <option value="Yr">Yearly</option>
       <option value="all">All</option>
     </select>
   </div>
@@ -59,24 +50,27 @@
       <label class="outputLabel" id="grossWk">$0.00</label>
       <label class="textLabel">Gross Weekly After Tax: </label>
       <label class="outputLabel" id="grossWkAT">$0.00</label>
+      <label class="textLabel">Net Weekly : </label>
+      <label class="outputLabel" id="netWk">$0.00</label>
     </div>
     <div class="outputMn hide">
       <label class="textLabel">Gross Monthly : </label>
       <label class="outputLabel" id="grossMn">$0.00</label>
       <label class="textLabel">Gross Monthly After Tax : </label>
       <label class="outputLabel" id="grossMnAT">$0.00</label>
-
-      <!-- <label class="textLabel">Net Monthly : </label> -->
-      <!-- <label class="outputLabel" id="netMonth">$0.00</label> -->
+      <label class="textLabel">Net Monthly : </label>
+      <label class="outputLabel" id="netMn">$0.00</label>
     </div>
     <div class="outputYr hide">
       <label class="textLabel">Gross Yearly : </label>
       <label class="outputLabel" id="grossYr">$0.00</label>
       <label class="textLabel">Gross Yearly After Tax : </label>
       <label class="outputLabel" id="grossYrAT">$0.00</label>
+      <label class="textLabel">Net Yearly : </label>
+      <label class="outputLabel" id="netYr">$0.00</label>
     </div>
   </div>
-
+</div>
   <script src="./renderer.js"></script>
 </body>
 

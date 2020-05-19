@@ -1,7 +1,7 @@
 {
   "name": "moneyman",
   "version": "1.0.0",
-  "description": "How much money man?",
+  "description": "Spending planner for hourly workers",
   "main": "main.js",
   "private": true,
   "scripts": {

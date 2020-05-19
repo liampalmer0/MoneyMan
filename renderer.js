@@ -1,11 +1,3 @@
-// let myNotification = new Notification('Notify', {
-//     body: 'Lorem Ipsum Dolor Sit Amet'
-//   })
-  
-//   myNotification.onclick = () => {
-//     console.log('Notification clicked')
-//   }
-
 const $ = require("jquery");
 const jetpack = require('fs-jetpack');
 const savePath = "./saves/default.json";
@@ -199,14 +191,3 @@ $("#btnCalc").click(() => { calcAndDisplay() });
 $("#scopeChoice").change((e) => { switchScope(e) });
 $(".btnRm").click((e) => { rmExpense(e) });
 $(".expenseField").change((e) => { updateExpData(e) });
-// $(window).resize(() => {
-//   if(window.innerWidth < 888 && !broke) {
-//     broke = true;
-//     $("#breakpoint").removeClass("splitCol");
-//     console.log("broke");
-//   }
-//   else {
-//     broke = false;
-//     $("#breakpoint").addClass("splitCol");
-//   }
-// });

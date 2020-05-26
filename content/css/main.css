@@ -49,6 +49,7 @@ h1 {
   grid-template-columns: 1fr;
   background-color: transparent;
   padding:0em;
+  max-height: 50em;
 }
 
 button {

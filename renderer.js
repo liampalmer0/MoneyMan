@@ -117,7 +117,7 @@ function addEmptyExpense() {
   
   insertPoint.append(expenseItem);
   expIndex++;
-  expenses.push(new Expense(rowId,"unknown", "0"));
+  expenses.push(new Expense(rowId,"", "0"));
   return rowId;
 }
 
@@ -133,8 +133,10 @@ function addExpense(name, amt) {
 function updateExpData(event) {
   let target = event.target;
   let value = $(target).val();
-  let rowId = target.name.slice(0,4);
-  let type = target.name.slice(5);
+  let rowId = target.name.slice(0,target.name.indexOf("-"));
+  let type = target.name.slice(target.name.indexOf("-") + 1);
+  console.log("id: " + rowId);
+  console.log("type: " + type);
   let r = expenses.find(({ id }) => id === rowId);
   r[type] = (r.id === rowId) ? value : r.name;
 }

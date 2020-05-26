@@ -135,8 +135,6 @@ function updateExpData(event) {
   let value = $(target).val();
   let rowId = target.name.slice(0,target.name.indexOf("-"));
   let type = target.name.slice(target.name.indexOf("-") + 1);
-  console.log("id: " + rowId);
-  console.log("type: " + type);
   let r = expenses.find(({ id }) => id === rowId);
   r[type] = (r.id === rowId) ? value : r.name;
 }

@@ -1,77 +1,99 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Money Man - A Spending Planner</title>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline';"
+    />
+    <link rel="stylesheet" type="text/css" href="./content/css/main.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <title>Money? What's that?</title>
-  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
-  <link rel="stylesheet" type="text/css" href="./content/css/main.css" />
-</head>
-
-<body>
-  <div class=" appHead">
-    <h1>Money Man</h1>
-  </div>
-  <div id="breakpoint" class="splitCol">
-  <div class="grid-wrapper" id="inputGrid">
-    <label class="textLabel" for="rate">Hourly Rate : </label>
-    <input id="rate" type="number" name="rate" value="0" />
-
-    <label class="textLabel" for="rate">Hours per Week : </label>
-    <input id="hours" type="number" name="hours" value="0" />
-
-    <label class="textLabel" for="rate">Tax Rate (%) : </label>
-    <input id="tax" type="number" name="tax" value="0" />
-    <label class="textLabel singleCol">Monthly Expenses : </label>
-    <div id="expenseList">
-      <!--Expense nodes added here-->
+  <body>
+    <div class="appHead">
+      <h1>Money Man</h1>
     </div>
-    
-    <div class="singleCol">
-      <div class="trisplitCol">
-        <button id="btnSave">Save</button>
-        <button id="btnAdd">Add Expense</button>
-        <button id="btnCalc">Calculate</button>
+    <div class="appBody">
+      <div class="grid-wrapper" id="inputGrid">
+        <label class="textLabel" for="rate">Hourly Rate : </label>
+        <input id="rate" type="number" name="rate" value="0" />
+
+        <label class="textLabel" for="rate">Hours per Week : </label>
+        <input id="hours" type="number" name="hours" value="0" />
+
+        <label class="textLabel" for="rate">Tax Rate (%) : </label>
+        <input id="tax" type="number" name="tax" value="0" />
+        <label class="textLabel singleCol">Monthly Expenses : </label>
+        <div id="expenseList">
+          <!--Expense nodes added here-->
+        </div>
+
+        <label class="textLabel" for="scopeChoice">Output Scope : </label>
+        <select id="scopeChoice" class="textInput select">
+          <option value="Wk">Weekly</option>
+          <option value="Mn">Monthly</option>
+          <option value="Yr">Yearly</option>
+          <option value="all">All</option>
+        </select>
+        <div class="singleCol">
+          <label class="textLabel" for="outputDets">Output Details : </label>
+        </div>
+        <div class="singleCol">
+          <div class="trisplitCol" id="outputDets">
+            <div>
+              <input type="checkbox" id="gross" name="grossIncome" checked />
+              <label class="textLabel" for="gross">Gross Income</label>
+            </div>
+            <div>
+              <input type="checkbox" id="grossAT" name="grossAfterTax" checked />
+              <label class="textLabel" for="grossAT">Gross After Tax</label>
+            </div>
+            <div>
+              <input type="checkbox" id="net" name="netIncome" checked />
+              <label class="textLabel" for="net">Net Income</label>
+            </div>
+          </div>
+        </div>
+        <div class="singleCol">
+          <div class="trisplitCol">
+            <button id="btnSave">Save</button>
+            <button id="btnAdd">Add Expense</button>
+            <button id="btnCalc">Calculate</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-wrapper" id="outputGrid">
+        <h3 class="singleCol">Weekly</h3>
+        <div class="outputWk">
+          <label class="textLabel">Gross : </label>
+          <label class="outputLabel" id="grossWk">$0.00</label>
+          <label class="textLabel">Gross After Tax: </label>
+          <label class="outputLabel" id="grossWkAT">$0.00</label>
+          <label class="textLabel">Net : </label>
+          <label class="outputLabel" id="netWk">$0.00</label>
+        </div>
+        <h3 class="singleCol">Monthly</h3>
+        <div class="outputMn hide">
+          <label class="textLabel">Gross : </label>
+          <label class="outputLabel" id="grossMn">$0.00</label>
+          <label class="textLabel">Gross After Tax : </label>
+          <label class="outputLabel" id="grossMnAT">$0.00</label>
+          <label class="textLabel">Net : </label>
+          <label class="outputLabel" id="netMn">$0.00</label>
+        </div>
+        <h3 class="singleCol">Yearly</h3>
+        <div class="outputYr hide">
+          <label class="textLabel">Gross : </label>
+          <label class="outputLabel" id="grossYr">$0.00</label>
+          <label class="textLabel">Gross After Tax : </label>
+          <label class="outputLabel" id="grossYrAT">$0.00</label>
+          <label class="textLabel">Net : </label>
+          <label class="outputLabel" id="netYr">$0.00</label>
+        </div>
       </div>
     </div>
-    
-    <label class="textLabel" for="scopeChoice">Output Scope : </label>
-    <select id="scopeChoice" class="textInput select">
-      <option value="Wk">Weekly</option>
-      <option value="Mn">Monthly</option>
-      <option value="Yr">Yearly</option>
-      <option value="all">All</option>
-    </select>
-  </div>
-
-  <div class="grid-wrapper" id="outputGrid">
-    <div class="outputWk">
-      <label class="textLabel">Gross Weekly: </label>
-      <label class="outputLabel" id="grossWk">$0.00</label>
-      <label class="textLabel">Gross Weekly After Tax: </label>
-      <label class="outputLabel" id="grossWkAT">$0.00</label>
-      <label class="textLabel">Net Weekly : </label>
-      <label class="outputLabel" id="netWk">$0.00</label>
-    </div>
-    <div class="outputMn hide">
-      <label class="textLabel">Gross Monthly : </label>
-      <label class="outputLabel" id="grossMn">$0.00</label>
-      <label class="textLabel">Gross Monthly After Tax : </label>
-      <label class="outputLabel" id="grossMnAT">$0.00</label>
-      <label class="textLabel">Net Monthly : </label>
-      <label class="outputLabel" id="netMn">$0.00</label>
-    </div>
-    <div class="outputYr hide">
-      <label class="textLabel">Gross Yearly : </label>
-      <label class="outputLabel" id="grossYr">$0.00</label>
-      <label class="textLabel">Gross Yearly After Tax : </label>
-      <label class="outputLabel" id="grossYrAT">$0.00</label>
-      <label class="textLabel">Net Yearly : </label>
-      <label class="outputLabel" id="netYr">$0.00</label>
-    </div>
-  </div>
-</div>
-  <script src="./renderer.js"></script>
-</body>
-
+    <script src="./renderer.js"></script>
+  </body>
 </html>

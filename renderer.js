@@ -69,9 +69,11 @@ function switchScope(e) {
   allScopes.children().addClass("hide");
   if(show !== "all") {
     $(".output" + show).removeClass("hide");
+    $(".output" + show).addClass("third");
   } 
   else {
     $(allScopes).children().removeClass("hide");
+    $(allScopes).children().removeClass("third");
   }
 }
       

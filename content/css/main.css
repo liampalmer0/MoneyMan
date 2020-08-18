@@ -1,115 +1,49 @@
-@font-face{
+@font-face {
   font-family: montserrat;
-  src: url(../fonts/Montserrat/Montserrat-Regular.ttf)
+  src: url(../fonts/Montserrat/Montserrat-Regular.ttf);
 }
-@font-face{
+@font-face {
   font-family: montserrat-thin;
-  src: url(../fonts/Montserrat/Montserrat-Thin.ttf)
+  src: url(../fonts/Montserrat/Montserrat-Thin.ttf);
+}
+html {
+  box-sizing: border-box;
 }
 body {
   font-family: montserrat-thin;
   background-color: rgb(244, 247, 244);
-  box-sizing: border-box;
-  font-size: .9em;
-  margin: 0em;
-  min-width: 32em;
   color: rgb(56, 56, 56);
-
+  font-size: 0.9em;
+  margin: 0em;
 }
 h1 {
-  margin:0em;
+  margin: 0em;
 }
 .appHead {
   background-color: #84ce99;
-  /* color:black; */
-  color:#FDFDFD;
-  margin-bottom: .8em;
+  color: black;
+  /* color:#FDFDFD; */
+  /* margin-bottom: 0.8em; */
   padding: 1em 2em;
+  text-align: center;
   /* border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px; */
-  text-align: center;
 }
-
-.grid-wrapper {
-  font-family: montserrat;
-  min-width: 32em;
-  padding:1em;
-  /* background-color: #e9e9e9; */
-  background-color: #FDFDFD;
+.appBody {
   display: grid;
-  grid-template-columns: 35% repeat(1, 1fr);
-  border-radius: 20px;
-  margin: 0em 1em;
 }
-#inputGrid {
+.grid-wrapper {
+  display: grid;
+  font-family: montserrat;
+  padding: 1em;
+  background-color: #fdfdfd;
+  grid-template-columns: 100%;
+}
+/* .grid-wrapper#inputGrid { 
   margin-bottom: 1em;
   box-shadow: 0 4px 8px 0 rgba(169, 169, 169, 0.25);
-}
-#outputGrid {
-  grid-template-columns: 1fr;
-  background-color: transparent;
-  padding:0em;
-  max-height: 50em;
-}
+} */
 
-button {
-  outline: none;
-  font-family: montserrat;
-  font-size: 1em;
-  text-align:center;
-  border-radius: 20px;
-  border:none;
-  padding: 0.5em;
-  margin:1em 0.4em;
-  max-height: 2.5em;
-}
-button:hover {
-  cursor: pointer;
-}
-#btnCalc {
-  background-color: rgb(132, 206, 153);
-  color:#FDFDFD;
-}
-#btnCalc:active { 
-  background-color: #74b686;
-}
-#btnAdd{
-  color: rgb(56, 56, 56);
-  border:1px rgb(56, 56, 56) solid;
-  border-radius: 20px;
-}
-#btnAdd:active{
-  background-color: rgb(230, 230, 230);
-}
-#btnSave {
-  color:rgb(252, 101, 78);
-  border:1px rgb(252, 101, 78) solid;
-}
-#btnSave:active{
-  background-color: rgb(252, 101, 78, 0.1);
-}
-
-input[type="text"], input[type="number"], #scopeChoice{
-  font-family: montserrat;
-  font-size: 1em;
-  background-color: rgb(244, 247, 244);
-  outline:none;
-  border:1px #E0E0E0 solid;
-  border-radius: 20px;
-  padding: 0.5em 1em;
-  margin: 1em 0.4em;
-  max-height: 1.5em;
-  min-height: 1em;
-}
-input[type="text"]:focus, input[type="number"]:focus {
-  border-radius: 20px;
-  color: rgb(56, 56, 56);
-  background-color: rgba(252, 206, 78, 0.15);
-}
-.singleCol {
-  display: grid;
-  grid-column: 1 / span 2;
-}
 .splitCol {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -118,22 +52,117 @@ input[type="text"]:focus, input[type="number"]:focus {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
+
+#inputGrid {
+  margin-bottom: 1em;
+  box-shadow: 0 4px 8px 0 rgba(169, 169, 169, 0.25);
+}
+input[type="text"],
+input[type="number"],
+#scopeChoice {
+  font-family: montserrat;
+  font-size: 1em;
+  background-color: rgb(244, 247, 244);
+  outline: none;
+  border: 1px #e0e0e0 solid;
+  border-radius: 20px;
+  padding: 0.5em 1em;
+  margin: 1em 0em;
+  max-height: 1.5em;
+  min-height: 1em;
+  min-width: 0px;
+}
+input[type="text"]:focus,
+input[type="number"]:focus {
+  border-radius: 20px;
+  color: rgb(56, 56, 56);
+  background-color: rgba(252, 206, 78, 0.15);
+}
 #expenseList {
   display: grid;
-  grid-column: 1 / span 2;
 }
 .expenseItem {
+  grid-template-columns: 50% 45% 5%;
   display: grid;
-  grid-template-columns: 10fr 9fr 1fr;
+  width: 100%;
 }
-.expenseField {
-  min-width: 12em;
+input.expenseField {
+  /* max-width:50%; */
+  margin-right: 0.5em;
 }
-.imgBtn{
-  background-color:transparent;
+/* OUTPUT STYLING ============================================ */
+#outputGrid {
+  grid-template-columns: 1fr;
+  background-color: transparent;
+  padding: 0em;
+  margin-top:1em;
+  max-height: 50em;
+}
+.outputLabel {
+  /* width: 12em; */
+  padding: 1em 0em;
+}
+.outputWk,
+.outputMn,
+.outputYr {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background-color: #fdfdfd;
+  max-height: 100%;
+  box-shadow: 0 4px 8px 0 rgba(169, 169, 169, 0.25);
+  margin: 1em 0em;
+  padding: 1em;
+}
+#outputGrid h3 { 
+  padding-left: .5em;
+  margin-top:auto;
+}
+
+/* BUTTONS =================================================== */
+button {
+  background-color: inherit;
+  outline: none;
+  font-family: montserrat;
+  font-size: 1em;
+  text-align: center;
+  border-radius: 20px;
   border: none;
-  padding:0em;
-  margin:1em 0em;
+  padding: 0.5em;
+  margin: 1em 0.4em;
+  /* max-height: 2.5em; */
+}
+button:hover {
+  cursor: pointer;
+}
+#btnCalc {
+  background-color: rgb(132, 206, 153);
+  color: rgb(56, 56, 56);
+}
+#btnCalc:active {
+  background-color: #74b686;
+}
+#btnAdd {
+  color: rgb(56, 56, 56);
+  border: 1px rgb(56, 56, 56) solid;
+  border-radius: 20px;
+  max-height: unset;
+}
+#btnAdd:active {
+  background-color: rgb(230, 230, 230);
+}
+#btnSave {
+  color: rgb(175, 52, 33);
+  /* color: rgb(56, 56, 56); */
+  border: 1px rgb(175, 53, 33) solid;
+}
+#btnSave:active {
+  background-color: rgb(252, 101, 78, 0.1);
+}
+.imgBtn {
+  background-color: transparent;
+  border: none;
+  padding: 0em;
+  margin: 1em 0em;
   outline: none;
 }
 .imgBtn:hover {
@@ -141,34 +170,59 @@ input[type="text"]:focus, input[type="number"]:focus {
 }
 .imgBtn > img {
   width: 1em;
-  height:auto;
+  height: auto;
 }
-.textLabel {
-  margin: .8em 0em;
-  padding: 0.5em;
-}
-.outputLabel {
-  width: 12em;
-  padding: 0em;
-  margin: 1em 0em 1em 2em;
-}
-.outputWk, .outputMn, .outputYr{
-  display: grid;
-  grid-template-columns: 15em repeat(1, 1fr);
-  margin: 0em 0em 1em 0em;
-  background-color: #FDFDFD;
-  padding: 1em;
-  border-radius: 20px;
-  max-height: 15em;
-  box-shadow: 0 4px 8px 0 rgba(169, 169, 169, 0.25);
-}
+
+/* DYNAMIC ===================================================== */
+/* needs to be last */
 .hide {
   display: none;
 }
 
-@media (max-width: 888px) {
-  #breakpoint{ 
+/* BIGGER THAN IPHONE X */
+@media (min-width: 420px) {
+  .grid-wrapper {
+    grid-template-columns: 35% repeat(1, 1fr);
+  }
+  .singleCol {
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
+    grid-column: 1 / span 2;
+  }
+  .textLabel {
+    /* margin: .8em 0em; */
+    padding: 1em 0em;
+  }
+  #expenseList {
+    grid-column: 1 / span 2;
+  }
+  .expenseItem {
+    width: 100%;
+  }
+}
+
+/* BIGGER THAN IPAD PRO */
+@media (min-width: 1024px) {
+  .appBody {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid-wrapper {
+    border-radius: 20px;
+    margin: 0em 1em;
+  }
+  input[type="text"],
+  input[type="number"],
+  #scopeChoice {
+    margin: 1em 0.3em;
+  }
+  .outputWk,
+  .outputMn,
+  .outputYr {
+    margin: 0em 0em 1em 0em;
+    border-radius: 20px;
+  }
+  /* DYNAMIC ===================================================== */
+  /* needs to be last */
+  .third {
+    max-height: 33%;
   }
 }

@@ -22,12 +22,8 @@ h1 {
 .appHead {
   background-color: #84ce99;
   color: black;
-  /* color:#FDFDFD; */
-  /* margin-bottom: 0.8em; */
   padding: 1em 2em;
   text-align: center;
-  /* border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px; */
 }
 .appBody {
   display: grid;
@@ -39,10 +35,6 @@ h1 {
   background-color: #fdfdfd;
   grid-template-columns: 100%;
 }
-/* .grid-wrapper#inputGrid { 
-  margin-bottom: 1em;
-  box-shadow: 0 4px 8px 0 rgba(169, 169, 169, 0.25);
-} */
 
 .splitCol {
   display: grid;
@@ -87,7 +79,6 @@ input[type="number"]:focus {
   width: 100%;
 }
 input.expenseField {
-  /* max-width:50%; */
   margin-right: 0.5em;
 }
 /* OUTPUT STYLING ============================================ */
@@ -97,7 +88,6 @@ input.expenseField {
   padding: 0em;
   margin-top: 1em;
   max-height: 50em;
-  /* height: 100%; */
 }
 #outputGrid h3 {
   padding-left: 0.5em;
@@ -105,7 +95,6 @@ input.expenseField {
   grid-column: 1 / span 2;
 }
 .outputLabel {
-  /* width: 12em; */
   padding: 1em 0em;
 }
 .outputWk,
@@ -119,6 +108,21 @@ input.expenseField {
   margin: 1em 0em;
   padding: 1em;
 }
+/* PIE CHART ================================================= */
+#chartGrid {
+  grid-template-columns: 1fr;
+}
+
+/* BRANDING ================================================== */
+#moneyMan { 
+  background-color: transparent;
+  grid-template-columns: 1fr;
+}
+#themm { 
+  margin: auto auto;
+  width: 20%;
+  height: auto;
+}
 
 /* BUTTONS =================================================== */
 button {
@@ -131,7 +135,6 @@ button {
   border: none;
   padding: 0.5em;
   margin: 1em 0.4em;
-  /* max-height: 2.5em; */
 }
 button:hover {
   cursor: pointer;
@@ -147,14 +150,12 @@ button:hover {
   color: rgb(56, 56, 56);
   border: 1px rgb(56, 56, 56) solid;
   border-radius: 20px;
-  max-height: unset;
 }
 #btnAdd:active {
   background-color: rgb(230, 230, 230);
 }
 #btnSave {
   color: rgb(175, 52, 33);
-  /* color: rgb(56, 56, 56); */
   border: 1px rgb(175, 53, 33) solid;
 }
 #btnSave:active {
@@ -224,6 +225,9 @@ button:hover {
   .outputYr {
     margin: 0em 0em 1em 0em;
     border-radius: 20px;
+  }
+  #themm { 
+    display:none;
   }
   /* DYNAMIC ===================================================== */
   /* needs to be last */

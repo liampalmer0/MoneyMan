@@ -230,20 +230,40 @@ function open() {
 }
 
 function createPie() {
+  var colors = [
+    "red",
+    "orange",
+    "yellow",
+    "green",
+    "blue",
+    "aqua",
+    "purple",
+    "pink",
+    "black",
+    "brown",
+  ];
   var data = [1, 1, 2, 3, 5, 8, 13, 21];
   var arcs = d3.pie()(data);
-  console.log(arcs);
+  // console.log(arcs);
   // arcs has start and end angle for arc() function -- see below
+  arcs.forEach((a) => {
+    var arc = d3
+      .arc()
+      .innerRadius(130)
+      .outerRadius(200)
+      .startAngle(a.startAngle)
+      .endAngle(a.endAngle);
+    let pathv = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    pathv.setAttribute("d", arc());
+    pathv.setAttribute("fill", colors[a.index]);
+    document.querySelector("#pieChart").appendChild(pathv);
+    // console.log(arc()); // "M0,-100A100,100,0,0,1,100,0L0,0Z"
+    
+    //add hover and info for percents, categories etc
 
-  var arc = d3
-    .arc()
-    .innerRadius(0)
-    .outerRadius(100)
-    .startAngle(0)
-    .endAngle(Math.PI / 2);
-
-  console.log(arc()); // "M0,-100A100,100,0,0,1,100,0L0,0Z"
-  //add to path d attr
+    //also maybe switch to a different chart as pi is potentially hard to read.
+    //100% bar chart, lollipop chart, treemap etc.
+  });
 }
 //=== START ====================================================================
 $().ready(() => {

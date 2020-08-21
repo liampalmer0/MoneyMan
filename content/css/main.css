@@ -95,8 +95,14 @@ input.expenseField {
   grid-template-columns: 1fr;
   background-color: transparent;
   padding: 0em;
-  margin-top:1em;
+  margin-top: 1em;
   max-height: 50em;
+  /* height: 100%; */
+}
+#outputGrid h3 {
+  padding-left: 0.5em;
+  margin-top: auto;
+  grid-column: 1 / span 2;
 }
 .outputLabel {
   /* width: 12em; */
@@ -112,10 +118,6 @@ input.expenseField {
   box-shadow: 0 4px 8px 0 rgba(169, 169, 169, 0.25);
   margin: 1em 0em;
   padding: 1em;
-}
-#outputGrid h3 { 
-  padding-left: .5em;
-  margin-top:auto;
 }
 
 /* BUTTONS =================================================== */
@@ -208,6 +210,9 @@ button:hover {
   .grid-wrapper {
     border-radius: 20px;
     margin: 0em 1em;
+  }
+  #inputGrid { 
+    margin-top: 1em;
   }
   input[type="text"],
   input[type="number"],

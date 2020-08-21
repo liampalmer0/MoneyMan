@@ -7,6 +7,7 @@
       http-equiv="Content-Security-Policy"
       content="script-src 'self' 'unsafe-inline';"
     />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="./content/css/main.css" />
   </head>
 
@@ -42,15 +43,33 @@
         <div class="singleCol">
           <div class="trisplitCol" id="outputDets">
             <div>
-              <input type="checkbox" id="gross" name="grossIncome" checked />
+              <input
+                type="checkbox"
+                value="gr"
+                id="gross"
+                name="grossIncome"
+                checked
+              />
               <label class="textLabel" for="gross">Gross Income</label>
             </div>
             <div>
-              <input type="checkbox" id="grossAT" name="grossAfterTax" checked />
+              <input
+                type="checkbox"
+                value="grAT"
+                id="grossAT"
+                name="grossAftTax"
+                checked
+              />
               <label class="textLabel" for="grossAT">Gross After Tax</label>
             </div>
             <div>
-              <input type="checkbox" id="net" name="netIncome" checked />
+              <input
+                type="checkbox"
+                value="net"
+                id="net"
+                name="netIncome"
+                checked
+              />
               <label class="textLabel" for="net">Net Income</label>
             </div>
           </div>
@@ -65,8 +84,8 @@
       </div>
 
       <div class="grid-wrapper" id="outputGrid">
-        <h3 class="singleCol">Weekly</h3>
         <div class="outputWk">
+          <h3 id="wkLabel">Weekly</h3>
           <label class="textLabel">Gross : </label>
           <label class="outputLabel" id="grossWk">$0.00</label>
           <label class="textLabel">Gross After Tax: </label>
@@ -74,8 +93,8 @@
           <label class="textLabel">Net : </label>
           <label class="outputLabel" id="netWk">$0.00</label>
         </div>
-        <h3 class="singleCol">Monthly</h3>
         <div class="outputMn hide">
+          <h3 id="mnLabel">Monthly</h3>
           <label class="textLabel">Gross : </label>
           <label class="outputLabel" id="grossMn">$0.00</label>
           <label class="textLabel">Gross After Tax : </label>
@@ -83,8 +102,8 @@
           <label class="textLabel">Net : </label>
           <label class="outputLabel" id="netMn">$0.00</label>
         </div>
-        <h3 class="singleCol">Yearly</h3>
         <div class="outputYr hide">
+          <h3 id="yrLabel">Yearly</h3>
           <label class="textLabel">Gross : </label>
           <label class="outputLabel" id="grossYr">$0.00</label>
           <label class="textLabel">Gross After Tax : </label>

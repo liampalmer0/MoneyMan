@@ -111,29 +111,28 @@ input.expenseField {
 /* PIE CHART ================================================= */
 #chartGrid {
   grid-template-columns: 1fr;
+  margin-top: 1em;
 }
-#pieChart { 
-  pointer-events: none;
-  transition: 0.3s;
-}
-#pieChart *:hover { 
-  background-color: pink;
-}
-.piePortion { 
+.piePortion {
   pointer-events: all;
-  transition: 3s;
+  transition: 0.2s;
+  opacity: 75%;
+  stroke: #575757;
+  stop-opacity: 100%;
 }
-.chartContent { 
-  height: 500px;
-  width: 500px;
+.piePortion:hover {
+  opacity: 100%;
+}
+.chartContent {
+  max-width: 500px;
 }
 
 /* BRANDING ================================================== */
-#moneyMan { 
+#moneyMan {
   background-color: transparent;
   grid-template-columns: 1fr;
 }
-#themm { 
+#themm {
   margin: auto auto;
   width: 20%;
   height: auto;
@@ -227,7 +226,7 @@ button:hover {
     border-radius: 20px;
     margin: 0em 1em;
   }
-  #inputGrid { 
+  #inputGrid {
     margin-top: 1em;
   }
   input[type="text"],
@@ -241,8 +240,11 @@ button:hover {
     margin: 0em 0em 1em 0em;
     border-radius: 20px;
   }
-  #themm { 
-    display:none;
+  #chartGrid { 
+    margin-bottom: 1em;
+  }
+  #themm {
+    display: none;
   }
   /* DYNAMIC ===================================================== */
   /* needs to be last */

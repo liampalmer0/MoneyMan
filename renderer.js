@@ -49,15 +49,15 @@ function calcAndDisplay() {
   let netYr = grossYearAftTax - mnExpenses * MONTHS_IN_YEAR;
 
   $("#grossWk").html(currency.format(grossWk));
-  $("#grossWkAT").html(currency.format(grossWkAftTax));
+  $("#grossATWk").html(currency.format(grossWkAftTax));
   $("#netWk").html(currency.format(netWk));
 
   $("#grossMn").html(currency.format(grossMonth));
-  $("#grossMnAT").html(currency.format(grossMonthAftTax));
+  $("#grossATMn").html(currency.format(grossMonthAftTax));
   $("#netMn").html(currency.format(netMn));
 
   $("#grossYr").html(currency.format(grossYear));
-  $("#grossYrAT").html(currency.format(grossYearAftTax));
+  $("#grossATYr").html(currency.format(grossYearAftTax));
   $("#netYr").html(currency.format(netYr));
 
   //i think needed for start up to show the right saved state
@@ -81,35 +81,30 @@ function switchScope(e) {
     $(allScopes).children().removeClass("third");
   }
 }
-function switchDets(e) {
-  //could change this selector to a relative one for code reuse
-  let allScopes = $("#outputGrid");
-  // let show = $(e.target).val(); // gr, grAT, or net
-  let show = getIntRepresentationOfSelection();
-  // getDetailsVal() {
-  //    $(".scopeDetailChoice").val()
-  //      for each add to return val
-  //      return single digit represenation
-  //
-  //  like 1 gross, 2 grAT, 4 net
+function switchDetails(e) {
+  let show = $(e.target).val(); // gr, grAT, or net
+  switch (show) {
+    case "gr":
+      $("label[class*='lblGross']").toggle();
+      break;
+    case "grAT":
+      $("label[class*='lblGrAT']").toggle();
+      break;
+    case "net":
+      $("label[class*='lblNet']").toggle();
+      break;
+  }
+  //  return single digit represenation
+  //  like 1 = gross, 2 = grAT, 4 = net
   //  3 gr + grAT
   //  5 gross + net
   //  6 grAT + net
   //  7 all
   //  would be simpler to store in save file
+
   //  could also convert the scope selection to a number
   //  and have a 2 digit represetation
   //    Ex: Gross and Net, for yearly = 52
-  // }
-  allScopes.find("label").addClass("hide");
-  if (show !== "all") {
-    // $(".output" + show).removeClass("hide");
-    // $(show.toString().toLowerCase() + "Label").removeClass("hide");
-    // console.log("showing " + show.toString().toLowerCase() + "Label");
-  } else {
-    // $(allScopes).children().removeClass("hide");
-    // $(allScopes).children().removeClass("third");
-  }
 }
 //=== EXPENSE LIST =============================================================
 function addEmptyExpense() {
@@ -246,15 +241,15 @@ function createPie(expenses) {
     "#979797",
   ];
   var result = {};
-  if (!expenses || expenses.size === 0) {
+  if (!expenses || expenses.length === 0) {
     result = document.createElement("div");
     $(result).html("no data to show");
   } else {
-    let data = expenses.map(expense => Math.ceil(expense.amt));
-    result = document.createElementNS("http://www.w3.org/2000/svg","svg");
+    let data = expenses.map((expense) => Math.ceil(expense.amt));
+    result = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     result.setAttribute("viewBox", "-250 -250 500 500"); //-width/2 -height/2 width height
     result.setAttribute("id", "pieChart");
-    
+
     var arcs = d3.pie()(data);
     arcs.forEach((a) => {
       var arc = d3
@@ -271,17 +266,19 @@ function createPie(expenses) {
       pathv.setAttribute("fill", colors[a.index]);
       pathv.classList.add("piePortion");
       result.appendChild(pathv);
-     
+
       //also maybe switch to a different chart as pi is potentially hard to read.
       //100% bar chart, lollipop chart, treemap etc.
 
-      //issue where the largest slices are always in the same spot with the same color; 
+      //issue where the largest slices are always in the same spot with the same color;
       // does not stay consistent with each expense
       //   feature not a bug?
     });
   }
   result.classList.add("chartContent");
-  document.querySelector("#chartGrid").replaceChild(result,document.querySelector(".chartContent"));
+  document
+    .querySelector("#chartGrid")
+    .replaceChild(result, document.querySelector(".chartContent"));
 }
 //=== START ====================================================================
 $().ready(() => {
@@ -301,9 +298,9 @@ $("#scopeChoice").change((e) => {
   switchScope(e);
 });
 $("#outputDets")
-  .children("input")
+  .find("input")
   .change((e) => {
-    switchDets(e);
+    switchDetails(e);
   });
 $(".btnRm").click((e) => {
   rmExpense(e);

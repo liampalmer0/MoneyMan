@@ -112,6 +112,21 @@ input.expenseField {
 #chartGrid {
   grid-template-columns: 1fr;
 }
+#pieChart { 
+  pointer-events: none;
+  transition: 0.3s;
+}
+#pieChart *:hover { 
+  background-color: pink;
+}
+.piePortion { 
+  pointer-events: all;
+  transition: 3s;
+}
+.chartContent { 
+  height: 500px;
+  width: 500px;
+}
 
 /* BRANDING ================================================== */
 #moneyMan { 

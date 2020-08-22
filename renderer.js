@@ -62,6 +62,7 @@ function calcAndDisplay() {
 
   //i think needed for start up to show the right saved state
   $("#scopeChoice").trigger("change");
+  createPie(expenses);
 }
 
 function switchScope(e) {
@@ -181,10 +182,11 @@ function addExpense(name, amt) {
 function updateExpData(event) {
   let target = event.target;
   let value = $(target).val();
-  let rowId = target.name.slice(0, target.name.indexOf("-"));
-  let type = target.name.slice(target.name.indexOf("-") + 1);
-  let r = expenses.find(({ id }) => id === rowId);
-  r[type] = r.id === rowId ? value : r.name;
+  let rowId = target.name.slice(0, target.name.indexOf("-")); //gets "row"X
+  let type = target.name.slice(target.name.indexOf("-") + 1); // gets "name" or "amt"
+  let match = expenses.find(({ id }) => id === rowId);
+  match[type] = value;
+  createPie(expenses);
 }
 
 function rmExpense(event) {
@@ -229,46 +231,62 @@ function open() {
   calcAndDisplay();
 }
 
-function createPie() {
+function createPie(expenses) {
   var colors = [
-    "red",
-    "orange",
-    "yellow",
-    "green",
-    "blue",
-    "aqua",
-    "purple",
-    "pink",
-    "black",
-    "brown",
+    "#ce9384", //red
+    "#ceae84", //orange
+    "#cec984", //yellow
+    "#84ce99", //green
+    "#4bc7bd", //aqua
+    "#9acadd", //blue
+    "#848bce",
+    "#b784ce",
+    "#d69fbf",
+    "#a37b47",
+    "#979797",
   ];
-  var data = [1, 1, 2, 3, 5, 8, 13, 21];
-  var arcs = d3.pie()(data);
-  // console.log(arcs);
-  // arcs has start and end angle for arc() function -- see below
-  arcs.forEach((a) => {
-    var arc = d3
-      .arc()
-      .innerRadius(130)
-      .outerRadius(200)
-      .startAngle(a.startAngle)
-      .endAngle(a.endAngle);
-    let pathv = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    pathv.setAttribute("d", arc());
-    pathv.setAttribute("fill", colors[a.index]);
-    document.querySelector("#pieChart").appendChild(pathv);
-    // console.log(arc()); // "M0,-100A100,100,0,0,1,100,0L0,0Z"
+  var result = {};
+  if (!expenses || expenses.size === 0) {
+    result = document.createElement("div");
+    $(result).html("no data to show");
+  } else {
+    let data = expenses.map(expense => Math.ceil(expense.amt));
+    result = document.createElementNS("http://www.w3.org/2000/svg","svg");
+    result.setAttribute("viewBox", "-250 -250 500 500"); //-width/2 -height/2 width height
+    result.setAttribute("id", "pieChart");
     
-    //add hover and info for percents, categories etc
+    var arcs = d3.pie()(data);
+    arcs.forEach((a) => {
+      var arc = d3
+        .arc()
+        .innerRadius(130)
+        .outerRadius(200)
+        .startAngle(a.startAngle)
+        .endAngle(a.endAngle);
+      let pathv = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "path"
+      );
+      pathv.setAttribute("d", arc());
+      pathv.setAttribute("fill", colors[a.index]);
+      pathv.classList.add("piePortion");
+      result.appendChild(pathv);
+     
+      //also maybe switch to a different chart as pi is potentially hard to read.
+      //100% bar chart, lollipop chart, treemap etc.
 
-    //also maybe switch to a different chart as pi is potentially hard to read.
-    //100% bar chart, lollipop chart, treemap etc.
-  });
+      //issue where the largest slices are always in the same spot with the same color; 
+      // does not stay consistent with each expense
+      //   feature not a bug?
+    });
+  }
+  result.classList.add("chartContent");
+  document.querySelector("#chartGrid").replaceChild(result,document.querySelector(".chartContent"));
 }
 //=== START ====================================================================
 $().ready(() => {
   open();
-  createPie();
+  createPie(expenses);
 });
 $("#btnSave").click(() => {
   save();

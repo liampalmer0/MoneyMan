@@ -18,6 +18,8 @@ body {
 }
 h1 {
   margin: 0em;
+  font-size: 1.2em;
+  font-family: montserrat;
 }
 .appHead {
   background-color: #84ce99;
@@ -64,6 +66,10 @@ input[type="number"],
   min-height: 1em;
   min-width: 0px;
 }
+#scopeChoice { 
+  padding: 0em 1em;
+  min-height: 2em;
+}
 input[type="text"]:focus,
 input[type="number"]:focus {
   border-radius: 20px;
@@ -81,6 +87,18 @@ input[type="number"]:focus {
 input.expenseField {
   margin-right: 0.5em;
 }
+
+#detailChoices { 
+  display: flex;
+  flex-direction: column;
+  padding-top: .5em;
+  padding-bottom: .5em;
+}
+#detailChoices * { 
+  padding-top: .5em;
+  padding-bottom: .5em;
+}
+
 /* OUTPUT STYLING ============================================ */
 #outputGrid {
   grid-template-columns: 1fr;
@@ -107,6 +125,7 @@ input.expenseField {
   box-shadow: 0 4px 8px 0 rgba(169, 169, 169, 0.25);
   margin: 1em 0em;
   padding: 1em;
+
 }
 /* PIE CHART ================================================= */
 #chartGrid {
@@ -149,6 +168,7 @@ button {
   border: none;
   padding: 0.5em;
   margin: 1em 0.4em;
+  box-shadow: 1px 8px 15px lightgray;
 }
 button:hover {
   cursor: pointer;
@@ -156,6 +176,7 @@ button:hover {
 #btnCalc {
   background-color: rgb(132, 206, 153);
   color: rgb(56, 56, 56);
+  
 }
 #btnCalc:active {
   background-color: #74b686;
@@ -174,6 +195,9 @@ button:hover {
 }
 #btnSave:active {
   background-color: rgb(252, 101, 78, 0.1);
+}
+.btnRm { 
+  box-shadow: none;
 }
 .imgBtn {
   background-color: transparent;

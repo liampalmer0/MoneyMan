@@ -297,7 +297,7 @@ $("#btnCalc").click(() => {
 $("#scopeChoice").change((e) => {
   switchScope(e);
 });
-$("#outputDets")
+$("#detailChoices")
   .find("input")
   .change((e) => {
     switchDetails(e);

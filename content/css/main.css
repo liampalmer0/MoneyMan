@@ -18,14 +18,16 @@ body {
 }
 h1 {
   margin: 0em;
-  font-size: 1.2em;
-  font-family: montserrat;
 }
 .appHead {
   background-color: #84ce99;
   color: black;
+  /* color:#FDFDFD; */
+  /* margin-bottom: 0.8em; */
   padding: 1em 2em;
   text-align: center;
+  /* border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px; */
 }
 .appBody {
   display: grid;
@@ -37,6 +39,10 @@ h1 {
   background-color: #fdfdfd;
   grid-template-columns: 100%;
 }
+/* .grid-wrapper#inputGrid { 
+  margin-bottom: 1em;
+  box-shadow: 0 4px 8px 0 rgba(169, 169, 169, 0.25);
+} */
 
 .splitCol {
   display: grid;
@@ -66,10 +72,6 @@ input[type="number"],
   min-height: 1em;
   min-width: 0px;
 }
-#scopeChoice { 
-  padding: 0em 1em;
-  min-height: 2em;
-}
 input[type="text"]:focus,
 input[type="number"]:focus {
   border-radius: 20px;
@@ -85,20 +87,9 @@ input[type="number"]:focus {
   width: 100%;
 }
 input.expenseField {
+  /* max-width:50%; */
   margin-right: 0.5em;
 }
-
-#detailChoices { 
-  display: flex;
-  flex-direction: column;
-  padding-top: .5em;
-  padding-bottom: .5em;
-}
-#detailChoices * { 
-  padding-top: .5em;
-  padding-bottom: .5em;
-}
-
 /* OUTPUT STYLING ============================================ */
 #outputGrid {
   grid-template-columns: 1fr;
@@ -106,6 +97,7 @@ input.expenseField {
   padding: 0em;
   margin-top: 1em;
   max-height: 50em;
+  /* height: 100%; */
 }
 #outputGrid h3 {
   padding-left: 0.5em;
@@ -113,6 +105,7 @@ input.expenseField {
   grid-column: 1 / span 2;
 }
 .outputLabel {
+  /* width: 12em; */
   padding: 1em 0em;
 }
 .outputWk,
@@ -125,36 +118,6 @@ input.expenseField {
   box-shadow: 0 4px 8px 0 rgba(169, 169, 169, 0.25);
   margin: 1em 0em;
   padding: 1em;
-
-}
-/* PIE CHART ================================================= */
-#chartGrid {
-  grid-template-columns: 1fr;
-  margin-top: 1em;
-}
-.piePortion {
-  pointer-events: all;
-  transition: 0.2s;
-  opacity: 75%;
-  stroke: #575757;
-  stop-opacity: 100%;
-}
-.piePortion:hover {
-  opacity: 100%;
-}
-.chartContent {
-  max-width: 500px;
-}
-
-/* BRANDING ================================================== */
-#moneyMan {
-  background-color: transparent;
-  grid-template-columns: 1fr;
-}
-#themm {
-  margin: auto auto;
-  width: 20%;
-  height: auto;
 }
 
 /* BUTTONS =================================================== */
@@ -168,7 +131,7 @@ button {
   border: none;
   padding: 0.5em;
   margin: 1em 0.4em;
-  box-shadow: 1px 8px 15px lightgray;
+  /* max-height: 2.5em; */
 }
 button:hover {
   cursor: pointer;
@@ -176,7 +139,6 @@ button:hover {
 #btnCalc {
   background-color: rgb(132, 206, 153);
   color: rgb(56, 56, 56);
-  
 }
 #btnCalc:active {
   background-color: #74b686;
@@ -185,19 +147,18 @@ button:hover {
   color: rgb(56, 56, 56);
   border: 1px rgb(56, 56, 56) solid;
   border-radius: 20px;
+  max-height: unset;
 }
 #btnAdd:active {
   background-color: rgb(230, 230, 230);
 }
 #btnSave {
   color: rgb(175, 52, 33);
+  /* color: rgb(56, 56, 56); */
   border: 1px rgb(175, 53, 33) solid;
 }
 #btnSave:active {
   background-color: rgb(252, 101, 78, 0.1);
-}
-.btnRm { 
-  box-shadow: none;
 }
 .imgBtn {
   background-color: transparent;
@@ -250,7 +211,7 @@ button:hover {
     border-radius: 20px;
     margin: 0em 1em;
   }
-  #inputGrid {
+  #inputGrid { 
     margin-top: 1em;
   }
   input[type="text"],
@@ -263,12 +224,6 @@ button:hover {
   .outputYr {
     margin: 0em 0em 1em 0em;
     border-radius: 20px;
-  }
-  #chartGrid { 
-    margin-bottom: 1em;
-  }
-  #themm {
-    display: none;
   }
   /* DYNAMIC ===================================================== */
   /* needs to be last */

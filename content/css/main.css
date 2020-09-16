@@ -22,10 +22,13 @@ h1 {
   font-family: montserrat;
 }
 .appHead {
+  display: grid;
+  grid-template-columns: 50% 50%;
   background-color: #84ce99;
   color: black;
   padding: 1em 2em;
   text-align: center;
+  align-items: center;
 }
 .appBody {
   display: grid;
@@ -66,7 +69,7 @@ input[type="number"],
   min-height: 1em;
   min-width: 0px;
 }
-#scopeChoice { 
+#scopeChoice {
   padding: 0em 1em;
   min-height: 2em;
 }
@@ -88,15 +91,15 @@ input.expenseField {
   margin-right: 0.5em;
 }
 
-#detailChoices { 
+#detailChoices {
   display: flex;
   flex-direction: column;
-  padding-top: .5em;
-  padding-bottom: .5em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
 }
-#detailChoices * { 
-  padding-top: .5em;
-  padding-bottom: .5em;
+#detailChoices * {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
 }
 
 /* OUTPUT STYLING ============================================ */
@@ -125,7 +128,6 @@ input.expenseField {
   box-shadow: 0 4px 8px 0 rgba(169, 169, 169, 0.25);
   margin: 1em 0em;
   padding: 1em;
-
 }
 /* PIE CHART ================================================= */
 #chartGrid {
@@ -146,17 +148,6 @@ input.expenseField {
   max-width: 500px;
 }
 
-/* BRANDING ================================================== */
-#moneyMan {
-  background-color: transparent;
-  grid-template-columns: 1fr;
-}
-#themm {
-  margin: auto auto;
-  width: 20%;
-  height: auto;
-}
-
 /* BUTTONS =================================================== */
 button {
   background-color: inherit;
@@ -168,7 +159,7 @@ button {
   border: none;
   padding: 0.5em;
   margin: 1em 0.4em;
-  box-shadow: 1px 8px 15px lightgray;
+  box-shadow: 0px 5px 15px rgba(16, 16, 16, 0.3);
 }
 button:hover {
   cursor: pointer;
@@ -176,7 +167,6 @@ button:hover {
 #btnCalc {
   background-color: rgb(132, 206, 153);
   color: rgb(56, 56, 56);
-  
 }
 #btnCalc:active {
   background-color: #74b686;
@@ -190,13 +180,16 @@ button:hover {
   background-color: rgb(230, 230, 230);
 }
 #btnSave {
-  color: rgb(175, 52, 33);
-  border: 1px rgb(175, 53, 33) solid;
+  margin: 0em;
+  color: white;
+  background-color: #282828;
+  /* background-color: rgb(175, 52, 33); */
+  /* border: 1px rgb(175, 53, 33) solid; */
 }
 #btnSave:active {
-  background-color: rgb(252, 101, 78, 0.1);
+  background-color: rgb(252, 101, 78);
 }
-.btnRm { 
+.btnRm {
   box-shadow: none;
 }
 .imgBtn {
@@ -222,6 +215,9 @@ button:hover {
 
 /* BIGGER THAN IPHONE X */
 @media (min-width: 420px) {
+  .appHead {
+    grid-template-columns: 75% 25%;
+  }
   .grid-wrapper {
     grid-template-columns: 35% repeat(1, 1fr);
   }
@@ -230,7 +226,6 @@ button:hover {
     grid-column: 1 / span 2;
   }
   .textLabel {
-    /* margin: .8em 0em; */
     padding: 1em 0em;
   }
   #expenseList {
@@ -243,6 +238,9 @@ button:hover {
 
 /* BIGGER THAN IPAD PRO */
 @media (min-width: 1024px) {
+  .appHead {
+    grid-template-columns: 90% 10%;
+  }
   .appBody {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -264,7 +262,7 @@ button:hover {
     margin: 0em 0em 1em 0em;
     border-radius: 20px;
   }
-  #chartGrid { 
+  #chartGrid {
     margin-bottom: 1em;
   }
   #themm {

@@ -27,7 +27,7 @@ class Expense {
 function sumExpenses() {
   let expSum = 0;
   expenses.forEach((expense) => {
-    expSum += parseFloat(expense.amt);
+    if (expense.amt && !isNaN(expense.amt)) expSum += parseFloat(expense.amt);
   });
   return expSum;
 }
@@ -60,20 +60,17 @@ function calcAndDisplay() {
   $("#grossATYr").html(currency.format(grossYearAftTax));
   $("#netYr").html(currency.format(netYr));
 
-  //i think needed for start up to show the right saved state
+  //Triggers output style adjustments
   $("#scopeChoice").trigger("change");
-  createPie(expenses);
 }
 
 function switchScope(e) {
-  //could change this selector to a relative one for code reuse
   let allScopes = $("#outputGrid");
   let show = $(e.target).val();
   allScopes.children().addClass("hide");
   if (show !== "all") {
     $(".output" + show).removeClass("hide");
     $(show.toString().toLowerCase() + "Label").removeClass("hide");
-    console.log("showing " + show.toString().toLowerCase() + "Label");
     // .third only exists for wider viewports; adjusts height of single output block
     $(".output" + show).addClass("third");
   } else {
@@ -82,30 +79,91 @@ function switchScope(e) {
   }
 }
 function switchDetails(e) {
-  let show = $(e.target).val(); // gr, grAT, or net
-  switch (show) {
-    case "gr":
-      $("label[class*='lblGross']").toggle();
+  let tval = $(e.target).val();
+  let details = { 1: "lblGross", 2: "lblGrAT", 4: "lblNet" };
+  if ($(e.target).prop("checked")) {
+    $("label[class*='" + details[tval] + "']").removeClass("hide");
+  } else {
+    $("label[class*='" + details[tval] + "']").addClass("hide");
+  }
+}
+
+function getDetailsVal() {
+  let checked = $("#detailChoices")
+    .find("input:checked")
+    .map(function () {
+      return $(this).val();
+    })
+    .toArray();
+  return checked.length > 0
+    ? checked.reduce(
+        (accumulator, currentValue) =>
+          parseInt(accumulator) + parseInt(currentValue)
+      )
+    : 0;
+}
+
+function setDetailsVal(val) {
+  let one = $("#detailChoices").find("input[value='1']");
+  let two = $("#detailChoices").find("input[value='2']");
+  let four = $("#detailChoices").find("input[value='4']");
+
+  switch (parseInt(val)) {
+    case 1:
+      // set 1
+      one.prop("checked", true);
+      two.prop("checked", false);
+      four.prop("checked", false);
       break;
-    case "grAT":
-      $("label[class*='lblGrAT']").toggle();
+    case 2:
+      //set 2
+      one.prop("checked", false);
+      two.prop("checked", true);
+      four.prop("checked", false);
       break;
-    case "net":
-      $("label[class*='lblNet']").toggle();
+    case 3:
+      //set 1 and 2
+      one.prop("checked", true);
+      two.prop("checked", true);
+      four.prop("checked", false);
+      break;
+    case 4:
+      //set 4
+      one.prop("checked", false);
+      two.prop("checked", false);
+      four.prop("checked", true);
+      break;
+    case 5:
+      //set 4 and 1
+      one.prop("checked", true);
+      two.prop("checked", false);
+      four.prop("checked", true);
+      break;
+    case 6:
+      //set 2 and 4
+      one.prop("checked", false);
+      two.prop("checked", true);
+      four.prop("checked", true);
+      break;
+    case 7:
+      //set all
+      one.prop("checked", true);
+      two.prop("checked", true);
+      four.prop("checked", true);
+      break;
+    case 0:
+    default:
+      //set none
+      one.prop("checked", false);
+      two.prop("checked", false);
+      four.prop("checked", false);
       break;
   }
-  //  return single digit represenation
-  //  like 1 = gross, 2 = grAT, 4 = net
-  //  3 gr + grAT
-  //  5 gross + net
-  //  6 grAT + net
-  //  7 all
-  //  would be simpler to store in save file
-
-  //  could also convert the scope selection to a number
-  //  and have a 2 digit represetation
-  //    Ex: Gross and Net, for yearly = 52
+  one.trigger("change");
+  two.trigger("change");
+  four.trigger("change");
 }
+
 //=== EXPENSE LIST =============================================================
 function addEmptyExpense() {
   let rowId = "row" + expIndex;
@@ -181,7 +239,6 @@ function updateExpData(event) {
   let type = target.name.slice(target.name.indexOf("-") + 1); // gets "name" or "amt"
   let match = expenses.find(({ id }) => id === rowId);
   match[type] = value;
-  createPie(expenses);
 }
 
 function rmExpense(event) {
@@ -201,6 +258,8 @@ function load(data) {
     $("#hours").val(data.hours);
     $("#tax").val(data.tax);
     $("#scopeChoice").val(data.scope);
+    setDetailsVal(data.details);
+
     data.expenses.forEach((exp) => {
       addExpense(exp.name, exp.amt);
     });
@@ -214,6 +273,7 @@ function prepareData() {
   data.tax = $("#tax").val();
   data.expenses = expenses;
   data.scope = $("#scopeChoice").val();
+  data.details = getDetailsVal();
   return data;
 }
 function save() {
@@ -226,85 +286,31 @@ function open() {
   calcAndDisplay();
 }
 
-function createPie(expenses) {
-  var colors = [
-    "#ce9384", //red
-    "#ceae84", //orange
-    "#cec984", //yellow
-    "#84ce99", //green
-    "#4bc7bd", //aqua
-    "#9acadd", //blue
-    "#848bce",
-    "#b784ce",
-    "#d69fbf",
-    "#a37b47",
-    "#979797",
-  ];
-  var result = {};
-  if (!expenses || expenses.length === 0) {
-    result = document.createElement("div");
-    $(result).html("no data to show");
-  } else {
-    let data = expenses.map((expense) => Math.ceil(expense.amt));
-    result = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    result.setAttribute("viewBox", "-250 -250 500 500"); //-width/2 -height/2 width height
-    result.setAttribute("id", "pieChart");
-
-    var arcs = d3.pie()(data);
-    arcs.forEach((a) => {
-      var arc = d3
-        .arc()
-        .innerRadius(130)
-        .outerRadius(200)
-        .startAngle(a.startAngle)
-        .endAngle(a.endAngle);
-      let pathv = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "path"
-      );
-      pathv.setAttribute("d", arc());
-      pathv.setAttribute("fill", colors[a.index]);
-      pathv.classList.add("piePortion");
-      result.appendChild(pathv);
-
-      //also maybe switch to a different chart as pi is potentially hard to read.
-      //100% bar chart, lollipop chart, treemap etc.
-
-      //issue where the largest slices are always in the same spot with the same color;
-      // does not stay consistent with each expense
-      //   feature not a bug?
-    });
-  }
-  result.classList.add("chartContent");
-  document
-    .querySelector("#chartGrid")
-    .replaceChild(result, document.querySelector(".chartContent"));
-}
 //=== START ====================================================================
-$().ready(() => {
-  open();
-  createPie(expenses);
-});
-$("#btnSave").click(() => {
+$("#btnSave").on("click", () => {
   save();
 });
-$("#btnAdd").click(() => {
+$("#btnAdd").on("click", () => {
   addEmptyExpense();
 });
-$("#btnCalc").click(() => {
+$("#btnCalc").on("click", () => {
   calcAndDisplay();
 });
-$("#scopeChoice").change((e) => {
+$("#scopeChoice").on("change", (e) => {
   switchScope(e);
 });
 $("#detailChoices")
   .find("input")
-  .change((e) => {
+  .on("change", (e) => {
     switchDetails(e);
   });
-$(".btnRm").click((e) => {
+$(".btnRm").on("click", (e) => {
   rmExpense(e);
 });
-$(".expenseField").change((e) => {
+$(".expenseField").on("change", (e) => {
   updateExpData(e);
+});
+//open and setup once ready
+$(() => {
+  open();
 });

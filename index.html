@@ -14,6 +14,7 @@
   <body>
     <div class="appHead">
       <h1>Money Man</h1>
+      <button id="btnSave">Save</button>
     </div>
     <div class="appBody">
       <div class="grid-wrapper" id="inputGrid">
@@ -45,7 +46,7 @@
             <div>
               <input
                 type="checkbox"
-                value="gr"
+                value="1"
                 id="gross"
                 name="grossIncome"
                 checked
@@ -55,7 +56,7 @@
             <div>
               <input
                 type="checkbox"
-                value="grAT"
+                value="2"
                 id="grossAT"
                 name="grossAftTax"
                 checked
@@ -65,7 +66,7 @@
             <div>
               <input
                 type="checkbox"
-                value="net"
+                value="4"
                 id="net"
                 name="netIncome"
                 checked
@@ -84,7 +85,7 @@
       </div>
 
       <div class="grid-wrapper" id="outputGrid">
-        <div class="outputWk">
+        <div class="outputWk third hide">
           <h3 id="wkLabel">Weekly</h3>
           <label class="textLabel lblGross">Gross : </label>
           <label class="outputLabel lblGross" id="grossWk">$0.00</label>
@@ -93,7 +94,7 @@
           <label class="textLabel lblNet">Net : </label>
           <label class="outputLabel lblNet" id="netWk">$0.00</label>
         </div>
-        <div class="outputMn hide">
+        <div class="outputMn third hide">
           <h3 id="mnLabel">Monthly</h3>
           <label class="textLabel lblGross">Gross : </label>
           <label class="outputLabel lblGross" id="grossMn">$0.00</label>
@@ -102,7 +103,7 @@
           <label class="textLabel lblNet">Net : </label>
           <label class="outputLabel lblNet" id="netMn">$0.00</label>
         </div>
-        <div class="outputYr hide">
+        <div class="outputYr third hide">
           <h3 id="yrLabel">Yearly</h3>
           <label class="textLabel lblGross">Gross : </label>
           <label class="outputLabel lblGross" id="grossYr">$0.00</label>
@@ -111,15 +112,6 @@
           <label class="textLabel lblNet">Net : </label>
           <label class="outputLabel lblNet" id="netYr">$0.00</label>
         </div>
-      </div>
-
-      <div class="grid-wrapper" id="chartGrid">
-        <h3>Expense Breakdown</h3>
-        <div class="chartContent"></div>
-      </div>
-
-      <div class="grid-wrapper" id="moneyMan">
-        <img id="themm" src="./content/img/icon.png" alt="Money Man Icon " />
       </div>
     </div>
     <script src="./renderer.js"></script>

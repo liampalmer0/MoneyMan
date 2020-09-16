@@ -1,6 +1,5 @@
 const $ = require("jquery");
 const jetpack = require("fs-jetpack");
-const d3 = require("d3-shape");
 const savePath = "./saves/default.json";
 const DAYS_IN_YEAR = 365.25;
 const MONTHS_IN_YEAR = 12;

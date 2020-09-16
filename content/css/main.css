@@ -129,24 +129,6 @@ input.expenseField {
   margin: 1em 0em;
   padding: 1em;
 }
-/* PIE CHART ================================================= */
-#chartGrid {
-  grid-template-columns: 1fr;
-  margin-top: 1em;
-}
-.piePortion {
-  pointer-events: all;
-  transition: 0.2s;
-  opacity: 75%;
-  stroke: #575757;
-  stop-opacity: 100%;
-}
-.piePortion:hover {
-  opacity: 100%;
-}
-.chartContent {
-  max-width: 500px;
-}
 
 /* BUTTONS =================================================== */
 button {
@@ -261,12 +243,6 @@ button:hover {
   .outputYr {
     margin: 0em 0em 1em 0em;
     border-radius: 20px;
-  }
-  #chartGrid {
-    margin-bottom: 1em;
-  }
-  #themm {
-    display: none;
   }
   /* DYNAMIC ===================================================== */
   /* needs to be last */

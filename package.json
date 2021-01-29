@@ -1,12 +1,15 @@
 {
   "name": "moneyman",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Spending planner for hourly workers",
   "main": "main.js",
   "private": true,
   "scripts": {
     "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "package-mac": "electron-packager . moneyman --overwrite --asar=true --platform=darwin --arch=x64 --icon=content/img/icon.icns --prune=true --out=release-builds",
+    "package-win": "electron-packager . moneyman --overwrite --asar=true --platform=win32 --arch=x64 --prune=true --out=release-builds",
+    "package-linux": "electron-packager . moneyman --overwrite --asar=true --platform=linux --arch=x64 --icon=content/img/icon.png --prune=true --out=release-builds"
   },
   "author": "Liam Palmer",
   "license": "ISC",

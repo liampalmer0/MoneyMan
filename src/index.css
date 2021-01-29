@@ -1,0 +1,81 @@
+@font-face {
+  font-family: montserrat;
+  src: url(./fonts/Montserrat/Montserrat-Regular.ttf);
+}
+@font-face {
+  font-family: montserrat-thin;
+  src: url(./fonts/Montserrat/Montserrat-Thin.ttf);
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(238, 238, 238);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+button {
+  border-radius: 5px;
+  border:none;
+  padding: 0.5rem 1rem;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+button:active {
+  box-shadow: none;
+}
+.topBar {
+  display: flex;
+  justify-content: flex-start;
+  grid-column: 1 / -1;
+  background-color: rgb(203, 238, 162);
+  margin: 0;
+  padding: 0.5rem;
+}
+.topBar > .menu {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-left: 1rem;
+}
+.topBar > .menu > button {
+  background-color: rgb(203, 238, 162);
+  padding: 0.5rem 1.25rem;
+  border: 1px solid black;
+  font-size: 1rem;
+  margin: auto;
+}
+.topBar > .menu > button:hover {
+  background-color: rgb(177, 243, 119);
+}
+.topBar > .menu > button:active {
+  color:black;
+  transition: ease-out .1s;
+  transform: scale(1.05)
+}
+.container {
+  display: grid;
+  grid-template-columns: 3fr repeat(2, 4fr);
+  width: 95%;
+  margin: auto auto 2rem auto;
+  gap: 0.5rem;
+}
+.container > div:last-child {
+  grid-column: 1 / -1;
+}
+.box,
+.box2,
+.box3 {
+  height: 350px;
+  background-color: #ffffff;
+  margin-top: 1rem;
+  border-radius: 5px;
+}

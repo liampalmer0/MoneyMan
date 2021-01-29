@@ -1,0 +1,6 @@
+section > .content {
+  display:none;
+}
+section > .content.expand {
+  display: block;
+}

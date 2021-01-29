@@ -1,0 +1,87 @@
+.tContainer {
+  background-color: white;
+  padding:1rem;
+  border-radius: 5px;
+}
+.tableControls {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  margin: 1rem auto;
+  justify-content: space-between;
+}
+.tableControls h2 {
+  margin: 0;
+  padding: 0;
+}
+.tableControls > button {
+  background-color: rgb(209, 255, 168);
+  padding: 0.5rem 0.25rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 5rem;
+}
+.tableControls > button:hover {
+  background-color: rgb(177, 243, 119);
+  transition: ease-out background-color 0.2s;
+}
+.transactionTable {
+  overflow-x: scroll;
+}
+.transactionTable > table {
+  width: 100%;
+  margin: auto;
+  border-collapse: collapse;
+  background-color: #fefefe;
+  border-radius: 5px;
+}
+.transactionTable > table tr {
+  border-bottom: 1px #999999 solid;
+}
+.transactionTable > table tr:nth-child(even) {
+  background-color: #f7f7f7;
+}
+th,
+td {
+  text-align: left;
+  padding: 0.5rem 0.25rem;
+}
+th {
+  padding: 0.5rem 0.25rem;
+  background-color: rgb(212, 212, 212);
+}
+th:last-child {
+  text-align: right;
+}
+td > .rowControls {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-end;
+}
+td > .rowControls > button {
+  background-color: white;
+  padding: 0.5rem 0.25rem;
+  border-radius: 3px;
+  padding: 0.5rem 0.25rem;
+  margin: 0.5rem;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 5rem;
+  flex: 1 1 1;
+  border: 1px solid black;
+}
+td > .rowControls > button:first-child {
+  background-color: rgb(220, 243, 245);
+}
+td > .rowControls > button:last-child {
+  background-color: rgb(255, 185, 185);
+}
+td > .rowControls > button:first-child:hover {
+  background-color: rgb(146, 228, 255);
+  transition: ease-out background-color 0.2s;
+}
+td > .rowControls > button:last-child:hover {
+  transition: ease-out background-color 0.2s;
+  background-color: rgb(255, 86, 86);
+}

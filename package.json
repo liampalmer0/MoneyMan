@@ -2,23 +2,51 @@
   "name": "moneyman",
   "version": "1.1.0",
   "description": "Spending planner for hourly workers",
-  "main": "main.js",
+  "author": "Liam Palmer",
+  "license": "ISC",
   "private": true,
+  "main": "public/main.js",
   "scripts": {
-    "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "react-scripts start",
+    "electron-start": "electron .",
+    "test": "react-scripts test",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject",
     "package-mac": "electron-packager . moneyman --overwrite --asar=true --platform=darwin --arch=x64 --icon=content/img/icon.icns --prune=true --out=release-builds",
     "package-win": "electron-packager . moneyman --overwrite --asar=true --platform=win32 --arch=x64 --prune=true --out=release-builds",
     "package-linux": "electron-packager . moneyman --overwrite --asar=true --platform=linux --arch=x64 --icon=content/img/icon.png --prune=true --out=release-builds"
   },
-  "author": "Liam Palmer",
-  "license": "ISC",
   "devDependencies": {
     "electron": "^11.2.1",
     "electron-packager": "^15.2.0"
   },
   "dependencies": {
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.3",
+    "@testing-library/user-event": "^12.6.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.1",
+    "web-vitals": "^0.2.4",
     "fs-jetpack": "^2.4.0",
     "jquery": "^3.5.1"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

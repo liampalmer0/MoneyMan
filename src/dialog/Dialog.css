@@ -1,0 +1,36 @@
+.wrapper {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+  background-color: rgba(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.dialog {
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  background-color: #ffffff;
+  width: 50%;
+  height: 30vh;
+  border-radius: 5px;
+  border: 1px rgb(100, 100, 100) solid;
+}
+.dialog > .header {
+  background-color: rgb(160, 160, 160);
+  padding: 0.5rem;
+  border-radius: 3px 3px 0px 0px;
+}
+.dialog > form {
+  padding: 1rem;
+  display: flex;
+  flex-flow: column;
+}
+.dialog > form > .controls > button:active {
+  background-color: white;
+}
+.dialog > form > input {
+  margin-bottom: 1rem;
+}

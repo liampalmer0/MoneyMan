@@ -6,15 +6,15 @@
   font-family: montserrat-thin;
   src: url(../fonts/Montserrat/Montserrat-Thin.ttf);
 }
-html {
+* {
   box-sizing: border-box;
 }
 body {
   font-family: montserrat-thin;
   background-color: rgb(244, 247, 244);
   color: rgb(56, 56, 56);
-  font-size: 0.9em;
-  margin: 0em;
+  font-size: 0.9rem;
+  margin: 0rem;
 }
 h1 {
   margin: 0em;
@@ -54,7 +54,7 @@ h1 {
   margin-bottom: 1em;
   box-shadow: 0 4px 8px 0 rgba(169, 169, 169, 0.25);
 }
-input[type="text"],
+/* input[type="text"],
 input[type="number"],
 #scopeChoice {
   font-family: montserrat;
@@ -68,25 +68,25 @@ input[type="number"],
   max-height: 1.5em;
   min-height: 1em;
   min-width: 0px;
-}
+}*/
 #scopeChoice {
   padding: 0em 1em;
   min-height: 2em;
 }
-input[type="text"]:focus,
+/*input[type="text"]:focus,
 input[type="number"]:focus {
   border-radius: 20px;
   color: rgb(56, 56, 56);
   background-color: rgba(252, 206, 78, 0.15);
-}
+} */
 #expenseList {
   display: grid;
 }
-.expenseItem {
+/* .expenseItem {
   grid-template-columns: 50% 45% 5%;
   display: grid;
   width: 100%;
-}
+} */
 input.expenseField {
   margin-right: 0.5em;
 }

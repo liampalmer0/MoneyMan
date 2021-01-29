@@ -1,4 +1,13 @@
 #npm 
 node_modules
 #macOS
-.DS_Store
+.DS_*
+
+build/
+
+*.log
+logs
+**/*.backup.*
+**/*.back.*
+
+.eslintcache

@@ -1,13 +1,18 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
+// const fs = require("fs");
+const path = require("path");
 
+let win;
 function createWindow() {
   // Create the browser window.
-  const win = new BrowserWindow({
+  win = new BrowserWindow({
     width: 1000,
     height: 600,
     webPreferences: {
-      nodeIntegration: true,
+      nodeIntegration: false,
+      contextIsolation: true,
       enableRemoteModule: false,
+      preload: path.join(__dirname, "preload.js"),
     },
   });
 
@@ -15,10 +20,10 @@ function createWindow() {
   // win.loadFile('index.html')
   //
   // if production/packaged version
-  if ((process.env.NODE_ENV = "production")) {
+  if (process.env.NODE_ENV === "production") {
     win.loadFile("build/index.html");
   } else {
-    win.loadUrl("localhost:8000");
+    win.loadURL("http://localhost:3000");
   }
   // Open the DevTools.
   // win.webContents.openDevTools()
@@ -48,3 +53,13 @@ app.on("activate", () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+ipcMain.on("toMain", (event, args) => {
+  // fs.readFile("path/to/file", (error, data) => {
+  //   // Do something with file contents
+  //   // Send result back to renderer process
+  // });
+  console.log(`Got "${args}" from renderer`);
+  let responseObj = "Hello World";
+  win.webContents.send("fromMain", responseObj);
+});

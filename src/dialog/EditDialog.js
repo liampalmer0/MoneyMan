@@ -13,7 +13,7 @@ class EditDialog extends React.Component {
         <input type="text" name="category" placeholder="Transaction Category" />
         <input type="number" name="amount" placeholder="0.00" />
         <div className="controls">
-          <button>Cancel</button>
+          <button onClick={this.props.handleClose}>Cancel</button>
           <input type="submit" name="Save" value="Save" />
         </div>
       </Dialog>

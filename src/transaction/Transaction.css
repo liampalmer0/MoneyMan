@@ -18,6 +18,7 @@
   background-color: rgb(209, 255, 168);
   padding: 0.5rem 0.25rem;
   border-radius: 5px;
+  border: 1px solid black;
   font-size: 1rem;
   width: 100%;
   max-width: 5rem;

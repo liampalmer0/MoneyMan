@@ -29,8 +29,6 @@ class TransactionRow extends React.Component {
 class TransactionTable extends React.Component {
   constructor(props) {
     super(props);
-    this.handleEditRow = this.handleEditRow.bind(this);
-    this.handleDeleteRow = this.handleDeleteRow.bind(this);
     this.handleClickEdit = this.handleClickEdit.bind(this);
     this.handleClickDelete = this.handleClickDelete.bind(this);
     this.state = {
@@ -40,7 +38,6 @@ class TransactionTable extends React.Component {
       rowId: -1,
     };
   }
-
   handleClickEdit(e, data) {
     this.setState((state) => ({
       editIsOpen: !state.editIsOpen,
@@ -54,21 +51,15 @@ class TransactionTable extends React.Component {
       editIsOpen: false,
     }));
   }
-  handleEditRow(e, data) {
-    this.setState((state) => {
-      state.editIsOpen = !state.editIsOpen;
-      state.data = data;
-      state.rowId = e.target.id;
-    });
-  }
-  handleDeleteRow(e, rowId) {
-    this.setState((state) => {
-      state.editIsOpen = !state.editIsOpen;
-      state.rowId = e.target.id;
-    });
-  }
   render() {
     const rows = [];
+    // assign key as prop as id from data here
+    // inside of row, access the key prop to tell higher functions what to edit/delete
+    // datalist -> react row -> event -> handle/update -> rerender changed data
+
+    // lifting up state
+    //  handleExample goes as prop in render & function in class
+    //  onExample goes as prop passed to component & used in function
     this.props.transactions.forEach((transaction) => {
       rows.push(
         <TransactionRow
@@ -96,13 +87,13 @@ class TransactionTable extends React.Component {
         <DeleteDialog
           name="DeleteDialog"
           handleClose={this.handleClickDelete}
-          handleAction={this.deleteRow}
+          handleAction={this.props.deleteRow}
           isOpen={this.state.deleteIsOpen}
         ></DeleteDialog>
         <EditDialog
           name="EditDialog"
           handleClose={this.handleClickEdit}
-          handleAction={this.updateRow}
+          handleAction={this.props.updateRow}
           isOpen={this.state.editIsOpen}
         ></EditDialog>
       </div>
@@ -111,15 +102,42 @@ class TransactionTable extends React.Component {
 }
 
 class AllTransactions extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      rowCount:0
+    }
+    this.updateRow = this.updateRow.bind(this);
+    this.deleteRow = this.deleteRow.bind(this);
+    this.handleClickAdd = this.handleClickAdd.bind(this);
+  }
+  handleClickAdd() {
+    console.log("hi");
+  }
+  updateRow(e, data) {
+    this.setState((state) => {
+      state.editIsOpen = !state.editIsOpen;
+      state.data = data;
+      state.rowId = e.target.id;
+    });
+  }
+  deleteRow(e, rowId) {
+    this.setState((state) => {
+      state.editIsOpen = !state.editIsOpen;
+      state.rowId = e.target.id;
+    });
+  }
   render() {
     return (
       <div className="tContainer">
         <div className="tableControls">
           <h2>Transactions</h2>
-          <button>Add</button>
+          <button onClick={this.handleClickAdd}>Add</button>
         </div>
         <TransactionTable
           transactions={this.props.transactions}
+          updateRow={this.updateRow}
+          deleteRow={this.deleteRow}
         ></TransactionTable>
       </div>
     );

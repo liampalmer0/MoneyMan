@@ -36,6 +36,8 @@
     transform: rotate(360deg);
   }
 }
+
+/* OLD MONEY MAN STYLES */
 @font-face {
   font-family: montserrat;
   src: url(./fonts/Montserrat/Montserrat-Regular.ttf);

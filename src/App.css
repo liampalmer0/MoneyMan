@@ -36,124 +36,61 @@
     transform: rotate(360deg);
   }
 }
-
-/* OLD MONEY MAN STYLES */
-@font-face {
-  font-family: montserrat;
-  src: url(./fonts/Montserrat/Montserrat-Regular.ttf);
-}
-@font-face {
-  font-family: montserrat-thin;
-  src: url(./fonts/Montserrat/Montserrat-Thin.ttf);
-}
-:root {
-  --mm-main: rgb(147, 201, 162);
-}
-* {
-  box-sizing: border-box;
-}
-body {
-  font-family: montserrat-thin;
-  background-color: rgb(244, 247, 244);
-  color: rgb(56, 56, 56);
-  font-size: 0.9rem;
-  margin: 0rem;
-}
-h1 {
-  margin: 0rem;
-  font-size: 1.2rem;
-  font-family: montserrat;
-}
 button {
-  background-color: inherit;
-  font-family: montserrat;
-  font-size: 1em;
-  border: none;
-  border-radius: 10px;
-  text-align: center;
-  padding: 0.5em;
-  margin: 1em 0.4em;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
-}
-button:hover {
+  border-radius: 5px;
+  border:none;
+  padding: 0.5rem 1rem;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
-.appHead {
-  display: grid;
-  grid-template-columns: 1fr;
-  background-color: var(--mm-main);
-  color: black;
-  padding: 1em 2em;
-  text-align: center;
-  align-items: center;
-}
-.appBody {
-  display: grid;
-}
-.input {
-  font-family: montserrat;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  background-color: #fdfdfd;
-  max-width: 100%;
-  margin-bottom: 1em;
-  padding: 1em;
-}
-.expenseList {
-  grid-column: span 2;
-}
-.controls {
-  display: flex;
-  justify-content: flex-end;
-  grid-column: span 2;
-  padding: 1rem;
-}
-.controls > .controlBtn {
-  border: solid #e0e0e0 1px;
-  padding: 0.5rem;
-  margin: 0.5rem;
-}
-.controls > .controlBtn#btnCalc {
-  border: none;
-  background-color: var(--mm-main);
-  padding: 0.5rem;
-  margin: 0.5rem;
-}
-section.refine {
-  grid-column: span 2;
-  background-color: rgb(244, 247, 244);
-  border-top: solid 1px #e0e0e0;
-  border-left: solid 1px #e0e0e0;
-  border-right: solid 1px #e0e0e0;
-}
-section.refine > div.expand {
-  grid-column: span 2;
-  background-color: rgb(244, 247, 244);
-  border-bottom: solid 1px #e0e0e0;
-}
-section.refine > button.section-title {
-  border: none;
-  grid-column: span 2;
-  box-shadow: none;
-  width: 100%;
-  border-bottom: solid 1px #e0e0e0;
-  margin: 0rem;
-  text-align: left;
-  padding: 0.5rem;
-  border-radius: 0px;
-}
-section.refine > button.section-title:active {
-  color: #787878;
-}
-section.refine .outDets {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  background-color: rgb(244, 247, 244);
-  padding: 1rem;
-}
 
-/* DYNAMIC ===================================================== */
-/* needs to be last */
-.hide {
-  display: none;
+button:active {
+  box-shadow: none;
+}
+.topBar {
+  display: flex;
+  justify-content: flex-start;
+  grid-column: 1 / -1;
+  background-color: rgb(203, 238, 162);
+  margin: 0;
+  padding: 0.5rem;
+}
+.topBar > .menu {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-left: 1rem;
+}
+.topBar > .menu > button {
+  background-color: rgb(203, 238, 162);
+  padding: 0.5rem 1.25rem;
+  border: 1px solid black;
+  font-size: 1rem;
+  margin: auto;
+}
+.topBar > .menu > button:hover {
+  background-color: rgb(177, 243, 119);
+}
+.topBar > .menu > button:active {
+  color:black;
+  transition: ease-out .1s;
+  transform: scale(1.05)
+}
+.container {
+  display: grid;
+  grid-template-columns: 3fr repeat(2, 4fr);
+  width: 95%;
+  margin: auto auto 2rem auto;
+  gap: 0.5rem;
+}
+.container > div:last-child {
+  grid-column: 1 / -1;
+}
+.box,
+.box2,
+.box3 {
+  height: 350px;
+  background-color: #ffffff;
+  margin-top: 1rem;
+  border-radius: 5px;
 }

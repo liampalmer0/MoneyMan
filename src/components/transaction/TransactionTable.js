@@ -60,16 +60,18 @@ class TransactionTable extends React.Component {
     // lifting up state
     //  handleExample goes as prop in render & function in class
     //  onExample goes as prop passed to component & used in function
-    this.props.transactions.forEach((transaction) => {
-      rows.push(
-        <TransactionRow
-          transaction={transaction}
-          key={transaction.id}
-          onClickEdit={this.handleClickEdit}
-          onClickDelete={this.handleClickDelete}
-        />
-      );
-    });
+    if (this.props.transactions.length !== 0) {
+      this.props.transactions.forEach((transaction) => {
+        rows.push(
+          <TransactionRow
+            transaction={transaction}
+            key={transaction.id}
+            onClickEdit={this.handleClickEdit}
+            onClickDelete={this.handleClickDelete}
+          />
+        );
+      });
+    }
 
     return (
       <div className="transactionTable">
@@ -105,8 +107,8 @@ class AllTransactions extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rowCount:0
-    }
+      rowCount: 0,
+    };
     this.updateRow = this.updateRow.bind(this);
     this.deleteRow = this.deleteRow.bind(this);
     this.handleClickAdd = this.handleClickAdd.bind(this);

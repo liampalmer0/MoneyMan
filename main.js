@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
-// const fs = require("fs");
 const path = require("path");
+const { save, load } = require("./fileHandler");
 
 let win;
 function createWindow() {
@@ -54,12 +54,19 @@ app.on("activate", () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
-ipcMain.on("toMain", (event, args) => {
-  // fs.readFile("path/to/file", (error, data) => {
-  //   // Do something with file contents
-  //   // Send result back to renderer process
-  // });
+ipcMain.on("load", (event, args) => {
   console.log(`Got "${args}" from renderer`);
-  let responseObj = "Hello World";
-  win.webContents.send("fromMain", responseObj);
+  const transactions = load();
+  win.webContents.send("load", transactions);
+});
+ipcMain.on("save", (event, args) => {
+  console.log(`Got "${args}" from renderer`);
+  let res = {};
+  try {
+    save(args.transactions, __dirname + "saves/default.json");
+    res = { status: 200, msg: "Save Successful" };
+  } catch (err) {
+    res = { status: 500, msg: "Error: Save Failed" };
+  }
+  win.webContents.send("save", res);
 });

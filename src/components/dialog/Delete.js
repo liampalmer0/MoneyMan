@@ -12,7 +12,7 @@ class DeleteDialog extends React.Component {
         <span>Delete</span>
         <span>Are you sure you want to delete this transaction?</span>
         <div className="controls">
-          <button>Delete</button>
+          <input type="submit" value="Delete"></input>
         </div>
       </Dialog>
     );

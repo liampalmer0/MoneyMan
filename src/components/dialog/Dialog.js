@@ -11,7 +11,7 @@ class Dialog extends React.Component {
     this.props.handleClose();
   }
   onAction(e) {
-    this.props.handleAction();
+    this.props.handleAction(e);
   }
   render() {
     const isOpen = this.props.isOpen;
@@ -23,7 +23,7 @@ class Dialog extends React.Component {
               <span>{this.props.name}</span>
               <button onClick={this.onClose}>&times;</button>
             </div>
-            <form>{this.props.children}</form>
+            <form onSubmit={this.onAction}>{this.props.children}</form>
           </div>
         </div>
       );

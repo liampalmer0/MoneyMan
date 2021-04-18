@@ -8,28 +8,23 @@ class Dialog extends React.Component {
     this.onAction = this.onAction.bind(this);
   }
   onClose(e) {
-    this.props.handleClose();
+    this.props.handleClose(e);
   }
   onAction(e) {
     this.props.handleAction(e);
   }
   render() {
-    const isOpen = this.props.isOpen;
-    if (isOpen) {
-      return (
-        <div className="wrapper">
-          <div className="dialog">
-            <div className="header">
-              <span>{this.props.name}</span>
-              <button onClick={this.onClose}>&times;</button>
-            </div>
-            <form onSubmit={this.onAction}>{this.props.children}</form>
+    return (
+      <div className="wrapper">
+        <div className="dialog">
+          <div className="header">
+            <span>{this.props.name}</span>
+            <button onClick={this.onClose}>&times;</button>
           </div>
+          <form onSubmit={this.onAction}>{this.props.children}</form>
         </div>
-      );
-    } else {
-      return null;
-    }
+      </div>
+    );
   }
 }
 

@@ -1,6 +1,6 @@
 import { Component } from "react";
 import "./App.css";
-import TransactionTable from "./components/transaction/TransactionTable.js";
+import Transactions from "./components/transaction/Transactions.js";
 
 class App extends Component {
   constructor(props) {
@@ -23,16 +23,16 @@ class App extends Component {
   handleSave() {
     window.api.send("save", "save please");
   }
-  addTransaction(e) {
-    e.preventDefault();
+  addTransaction(name, cat, amount) {
     this.setState((state) => ({
       transactions: [
         ...state.transactions,
         {
+          // TODO: handle indexing
           id: 5,
-          amount: 100.0,
-          name: "TestTrn",
-          category: "test",
+          amount: amount,
+          name: name,
+          category: cat,
         },
       ],
     }));
@@ -62,7 +62,7 @@ class App extends Component {
           <div className="box"></div> {/* Will become Stats component */}
           <div className="box2"></div> {/* Will become a vis component */}
           <div className="box3"></div> {/* Will become another vis component */}
-          <TransactionTable
+          <Transactions
             addTransaction={this.addTransaction}
             transactions={this.state.transactions}
           />

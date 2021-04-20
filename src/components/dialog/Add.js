@@ -17,7 +17,7 @@ class Add extends React.Component {
   }
   onAction(e) {
     e.preventDefault();
-    this.props.handleAction([
+    this.props.onAction([
       this.state.name,
       this.state.cat,
       this.state.amount,
@@ -42,10 +42,10 @@ class Add extends React.Component {
     return (
       <Dialog
         isOpen={this.props.isOpen}
-        handleAction={this.onAction}
-        handleClose={this.props.handleClose}
+        onAction={this.onAction}
+        onClose={this.props.onClose}
+        name="Add Transaction"
       >
-        <span>Add Transaction</span>
         <input
           type="text"
           name="name"
@@ -72,7 +72,7 @@ class Add extends React.Component {
           required
         />
         <div className="controls">
-          <button onClick={this.props.handleClose}>Cancel</button>
+          <button onClick={this.props.onClose}>Cancel</button>
           <input type="submit" value="Save" />
         </div>
       </Dialog>

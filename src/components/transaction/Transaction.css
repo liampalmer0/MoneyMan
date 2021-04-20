@@ -1,6 +1,7 @@
 .tContainer {
+  position: relative;
   background-color: white;
-  padding:1rem;
+  padding: 1rem;
   border-radius: 5px;
 }
 .tableControls {
@@ -8,20 +9,21 @@
   flex-flow: row nowrap;
   width: 100%;
   margin: 1rem auto;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 .tableControls h2 {
   margin: 0;
-  padding: 0;
+  padding: 0 1rem 0 0;
 }
 .tableControls > button {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
   background-color: rgb(209, 255, 168);
-  padding: 0.5rem 0.25rem;
-  border-radius: 5px;
-  border: 1px solid black;
-  font-size: 1rem;
-  width: 100%;
-  max-width: 5rem;
+  border-radius: 100%;
+  height: 3rem;
+  width: 3rem;
+  padding: 0;
 }
 .tableControls > button:hover {
   background-color: rgb(177, 243, 119);
@@ -38,22 +40,28 @@
   border-radius: 5px;
 }
 .transactionTable > table tr {
-  border-bottom: 1px #999999 solid;
+  border-bottom: 1px #cbcbcb solid;
 }
-.transactionTable > table tr:nth-child(even) {
+.transactionTable > table tbody tr:hover {
   background-color: #f7f7f7;
+}
+th {
+  font-weight: bold;
 }
 th,
 td {
   text-align: left;
-  padding: 0.5rem 0.25rem;
+  padding: 0.5rem 1rem;
+  text-overflow: ellipsis;
 }
-th {
-  padding: 0.5rem 0.25rem;
-  background-color: rgb(212, 212, 212);
+th:first-child,
+td:first-child {
+  width: 1rem;
 }
-th:last-child {
+th:last-child,
+td:last-child {
   text-align: right;
+  padding-right: 1rem;
 }
 td > .rowControls {
   display: flex;

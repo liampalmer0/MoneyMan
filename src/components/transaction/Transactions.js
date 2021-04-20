@@ -13,13 +13,14 @@ export default class Transactions extends Component {
       addIsOpen: false,
       rowCount: 0,
       currentTransaction: {},
+      selected: [],
     };
-    this.handleAddTransaction = this.handleAddTransaction.bind(this);
     this.handleClickAdd = this.handleClickAdd.bind(this);
     this.handleClickEdit = this.handleClickEdit.bind(this);
     this.handleClickDelete = this.handleClickDelete.bind(this);
-    this.updateRow = this.updateRow.bind(this);
-    this.deleteRow = this.deleteRow.bind(this);
+    this.onAddRow = this.onAddRow.bind(this);
+    this.onUpdateRow = this.onUpdateRow.bind(this);
+    this.onDeleteRow = this.onDeleteRow.bind(this);
   }
   handleClickEdit(e, data) {
     e.preventDefault();
@@ -46,61 +47,75 @@ export default class Transactions extends Component {
       deleteIsOpen: false,
     }));
   }
-  handleAddTransaction(transaction) {
+  handleCheckChange(e, data) {
+    // TODO: selected to state.selected list
+    console.log(data);
+  }
+
+  onAddRow(transaction) {
     this.setState(() => ({ addIsOpen: false }));
-    this.props.addTransaction(...transaction);
+    this.props.onAddRow(...transaction);
   }
-  updateRow(e, data) {
+  onUpdateRow(e, transaction) {
     e.preventDefault();
-    console.log("Update row clicked");
-    this.setState((state) => ({
-      editIsOpen: !state.editIsOpen,
-      // state.data = data;
-      // state.rowId = e.target.id;
-    }));
+    this.setState(() => ({ editIsOpen: false }));
+    this.props.onUpdateRow(...transaction);
   }
-  deleteRow(e, rowId) {
+  onDeleteRow(e, transaction) {
     e.preventDefault();
-    console.log(e);
-    console.log("Delete row clicked");
-    this.setState((state) => ({
-      deleteIsOpen: !state.deleteIsOpen,
-      editIsOpen: false,
-      addIsOpen: false,
-    }));
+    this.setState(() => ({ deleteIsOpen: false }));
+    this.props.onUpdateRow(...transaction);
   }
+
   render() {
     return (
       <div className="tContainer">
         <div className="tableControls">
           <h2>Transactions</h2>
-          <button onClick={this.handleClickAdd}>Add</button>
+          <div className="rowControls">
+            <button
+              title="Edit"
+              onClick={this.onClickEdit}
+              disabled={this.state.selected.length === 0}
+            >
+              <span className="fas fa-pen"></span>
+            </button>
+            <button
+              title="Delete"
+              onClick={this.props.onClickDelete}
+              disabled={this.state.selected.length === 0}
+            >
+              <span className="fas fa-trash-alt"></span>
+            </button>
+          </div>
+          <button onClick={this.handleClickAdd}>
+            <span className="fas fa-plus"></span>
+          </button>
         </div>
         <TransactionTable
           transactions={this.props.transactions}
-          handleClickEdit={this.handleClickEdit}
-          handleClickDelete={this.handleClickDelete}
+          onCheckChange={this.handleCheckChange}
         ></TransactionTable>
         {this.state.addIsOpen && (
           <AddDialog
             name="addDialog"
-            handleClose={this.handleClickAdd}
-            handleAction={this.handleAddTransaction}
+            onClose={this.handleClickAdd}
+            onAction={this.onAddRow}
             isOpen={this.state.addIsOpen}
           ></AddDialog>
         )}
         {this.state.deleteIsOpen && (
           <DeleteDialog
             name="DeleteDialog"
-            handleClose={this.handleClickDelete}
-            handleAction={this.deleteRow}
+            onClose={this.handleClickDelete}
+            onAction={this.onDeleteRow}
           ></DeleteDialog>
         )}
         {this.state.editIsOpen && (
           <EditDialog
             name="EditDialog"
-            handleClose={this.handleClickEdit}
-            handleAction={this.updateRow}
+            onClose={this.handleClickEdit}
+            onAction={this.onUpdateRow}
             transaction={this.state.currentTransaction}
           ></EditDialog>
         )}

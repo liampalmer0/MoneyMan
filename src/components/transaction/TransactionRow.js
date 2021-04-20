@@ -4,30 +4,23 @@ import "./Transaction.css";
 export default class TransactionRow extends React.Component {
   constructor(props) {
     super(props);
-    this.onClickEdit = this.onClickEdit.bind(this);
+    this.onCheckChange = this.onCheckChange.bind(this);
   }
 
-  onClickEdit(e) {
-    this.props.onClickEdit(e, this.props.transaction);
+  onCheckChange(e) {
+    this.props.onCheckChange(e, this.props.transaction);
   }
 
   render() {
     const transaction = this.props.transaction;
     return (
       <tr>
+        <td>
+          <input type="checkbox" onChange={this.onCheckChange} />
+        </td>
         <td>{transaction.name}</td>
         <td>{transaction.category}</td>
         <td>{transaction.amount}</td>
-        <td>
-          <div className="rowControls">
-            <button name="Edit" onClick={this.onClickEdit}>
-              Edit
-            </button>
-            <button name="Delete" onClick={this.props.onClickDelete}>
-              Delete
-            </button>
-          </div>
-        </td>
       </tr>
     );
   }

@@ -1,5 +1,6 @@
 import { Component } from "react";
 import "./App.css";
+import AppMenu from "./components/AppMenu";
 import Transactions from "./components/transaction/Transactions.js";
 
 class App extends Component {
@@ -9,20 +10,26 @@ class App extends Component {
       transactions: [],
     };
     this.addTransaction = this.addTransaction.bind(this);
+    this.onLoadRes = this.handleLoadResponse.bind(this);
   }
-  onLoadRes(data) {
+  handleLoadResponse(data) {
     console.log(`Got "${data}" from main process`);
-    this.setState((state) => ({ transactions: [...data] }));
+    this.setState(() => ({ transactions: [...data] }));
   }
-  onSaveRes(data) {
+  handleSaveResponse(data) {
     console.log(JSON.stringify(data));
   }
+
+  handleNew() {
+    window.api.send("new", "create new please");
+  }
   handleLoad() {
-    window.api.send("load", "sent swag and good tides");
+    window.api.send("load", "load please");
   }
   handleSave() {
     window.api.send("save", "save please");
   }
+
   addTransaction(name, cat, amount) {
     this.setState((state) => ({
       transactions: [
@@ -37,33 +44,39 @@ class App extends Component {
       ],
     }));
   }
+  updateTransaction(name, cat, amount) {
+    //TODO: find and update transaction in state.transactions
+    console.log(`Updating transaction '${name}'`);
+  }
+  deleteTransaction(name, cat, amount) {
+    //TODO: find and update transaction in state.transactions
+    console.log(`Updating transaction ${name}`);
+  }
   componentDidMount() {
     // set up IPC event listeners
     window.api.receive("load", (data) => {
-      this.onLoadRes(data);
+      this.handleLoadResponse(data);
     });
     window.api.receive("save", (data) => {
-      this.onSaveRes(data);
+      this.handleSaveResponse(data);
     });
   }
   render() {
     return (
       <div className="app">
-        <div className="topBar">
-          {/* Will become top bar component */}
-          <h1 className="mainHeader">Money Man</h1>
-          <div className="menu">
-            <button onClick={this.handleNew}>New</button>
-            <button onClick={this.handleLoad}>Open</button>
-            <button onClick={this.handleSave}>Save</button>
-          </div>
-        </div>
+        <AppMenu
+          onClickNew={this.handleNew}
+          onCickOpen={this.handleLoad}
+          onClickSave={this.handleSave}
+        ></AppMenu>
         <div className="container">
           <div className="box"></div> {/* Will become Stats component */}
           <div className="box2"></div> {/* Will become a vis component */}
           <div className="box3"></div> {/* Will become another vis component */}
           <Transactions
-            addTransaction={this.addTransaction}
+            onAddRow={this.addTransaction}
+            onUpdateRow={this.updateTransaction}
+            onDeleteRow={this.deleteTransaction}
             transactions={this.state.transactions}
           />
         </div>

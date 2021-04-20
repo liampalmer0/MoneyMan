@@ -18,7 +18,7 @@ class EditDialog extends React.Component {
   }
   onAction(e) {
     e.preventDefault();
-    this.props.handleAction(this.state.name, this.state.cat, this.state.amount);
+    this.props.onAction(this.state.name, this.state.cat, this.state.amount);
   }
   onNameChange(e) {
     this.setState(() => ({
@@ -38,8 +38,9 @@ class EditDialog extends React.Component {
   render() {
     return (
       <Dialog
-        handleAction={this.props.handleAction}
-        handleClose={this.props.handleClose}
+        onAction={this.props.onAction}
+        onClose={this.props.onClose}
+        name="Edit Transaction"
       >
         <input
           type="text"
@@ -67,7 +68,7 @@ class EditDialog extends React.Component {
           required
         />
         <div className="controls">
-          <button onClick={this.props.handleClose}>Cancel</button>
+          <button onClick={this.props.onClose}>Cancel</button>
           <input type="submit" name="Save" value="Save" />
         </div>
       </Dialog>

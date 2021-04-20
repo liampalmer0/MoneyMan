@@ -8,11 +8,11 @@ export default class TransactionTable extends React.Component {
     this.state = {
       rowId: -1,
     };
-    this.onClickEdit = this.onClickEdit.bind(this);
+    this.onCheckChange = this.onCheckChange.bind(this);
   }
 
-  onClickEdit(e, data) {
-    this.props.handleClickEdit(e, data);
+  onCheckChange(e, data) {
+    this.props.onCheckChange(e, data);
   }
 
   render() {
@@ -26,8 +26,7 @@ export default class TransactionTable extends React.Component {
           <TransactionRow
             transaction={transaction}
             key={transaction.id}
-            onClickEdit={this.onClickEdit}
-            onClickDelete={this.props.handleClickDelete}
+            onCheckChange={this.onCheckChange}
           />
         );
       });
@@ -38,10 +37,12 @@ export default class TransactionTable extends React.Component {
         <table>
           <thead>
             <tr>
+              <th>
+                <input type="checkbox" disabled={this.props.transactions.length === 0} />
+              </th>
               <th>Name</th>
               <th>Category</th>
               <th>Amount</th>
-              <th>Edit/Delete</th>
             </tr>
           </thead>
           <tbody>{rows}</tbody>

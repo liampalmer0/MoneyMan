@@ -1,12 +1,3 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -47,35 +38,7 @@ button {
 button:active {
   box-shadow: none;
 }
-.topBar {
-  display: flex;
-  justify-content: flex-start;
-  grid-column: 1 / -1;
-  background-color: rgb(203, 238, 162);
-  margin: 0;
-  padding: 0.5rem;
-}
-.topBar > .menu {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-left: 1rem;
-}
-.topBar > .menu > button {
-  background-color: rgb(203, 238, 162);
-  padding: 0.5rem 1.25rem;
-  border: 1px solid black;
-  font-size: 1rem;
-  margin: auto;
-}
-.topBar > .menu > button:hover {
-  background-color: rgb(177, 243, 119);
-}
-.topBar > .menu > button:active {
-  color:black;
-  transition: ease-out .1s;
-  transform: scale(1.05)
-}
+
 .container {
   display: grid;
   grid-template-columns: 3fr repeat(2, 4fr);

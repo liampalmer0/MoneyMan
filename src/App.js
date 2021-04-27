@@ -8,9 +8,17 @@ class App extends Component {
     super(props);
     this.state = {
       transactions: [],
+      allChecked: false,
+      checkCt: 0,
     };
     this.addTransaction = this.addTransaction.bind(this);
-    this.onLoadRes = this.handleLoadResponse.bind(this);
+    this.updateTransaction = this.updateTransaction.bind(this);
+    this.deleteTransaction = this.deleteTransaction.bind(this);
+    this.handleCheckChange = this.handleCheckChange.bind(this);
+    this.handleCheckAll = this.handleCheckAll.bind(this);
+    this.handleNew = this.handleNew.bind(this);
+    this.handleLoad = this.handleLoad.bind(this);
+    this.handleSave = this.handleSave.bind(this);
   }
   handleLoadResponse(data) {
     console.log(`Got "${data}" from main process`);
@@ -29,28 +37,74 @@ class App extends Component {
   handleSave() {
     window.api.send("save", "save please");
   }
-
+  handleCheckAll(e) {
+    this.setState((state) => ({
+      allChecked: !state.allChecked,
+    }));
+  }
+  handleCheckChange(e, data) {
+    this.setState((state) => {
+      let transactions = state.transactions;
+      let count = state.checkCt;
+      let index = transactions.findIndex((t) => t.id === data.id);
+      if (state.allChecked && !data.isChecked) {
+        count++;
+        transactions[index].checked = !data.isChecked;
+      } else {
+        count = data.isChecked ? count + 1 : count - 1;
+        transactions[index].checked = data.isChecked;
+      }
+      return {
+        transactions: transactions,
+        checkCt: count,
+        allChecked: false,
+      };
+    });
+  }
   addTransaction(name, cat, amount) {
     this.setState((state) => ({
       transactions: [
         ...state.transactions,
         {
-          // TODO: handle indexing
-          id: 5,
+          id: state.transactions.length + 1,
           amount: amount,
           name: name,
           category: cat,
+          checked: false,
         },
       ],
     }));
   }
-  updateTransaction(name, cat, amount) {
-    //TODO: find and update transaction in state.transactions
-    console.log(`Updating transaction '${name}'`);
+  updateTransaction(transaction) {
+    this.setState((state) => {
+      let transactions = state.transactions;
+      transactions[
+        transactions.findIndex((t) => t.id === transaction.id)
+      ] = transaction;
+      return { transactions: transactions };
+    });
   }
-  deleteTransaction(name, cat, amount) {
-    //TODO: find and update transaction in state.transactions
-    console.log(`Updating transaction ${name}`);
+  deleteTransaction(e) {
+    if (this.state.allChecked) {
+      this.setState(() => ({
+        transactions: [],
+        allChecked: false,
+        checkCt: 0,
+      }));
+    } else {
+      this.setState((state) => {
+        let transactions = [];
+        let idCt = 0;
+        state.transactions.forEach((t) => {
+          if (t.checked === false) {
+            t.id = idCt;
+            idCt++;
+            transactions.push(t);
+          }
+        });
+        return { transactions, checkCt: 0 };
+      });
+    }
   }
   componentDidMount() {
     // set up IPC event listeners
@@ -78,6 +132,10 @@ class App extends Component {
             onUpdateRow={this.updateTransaction}
             onDeleteRow={this.deleteTransaction}
             transactions={this.state.transactions}
+            onCheckChange={this.handleCheckChange}
+            checkedCount={this.state.checkCt}
+            onCheckAll={this.handleCheckAll}
+            allChecked={this.state.allChecked}
           />
         </div>
       </div>

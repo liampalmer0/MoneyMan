@@ -18,7 +18,13 @@ class EditDialog extends React.Component {
   }
   onAction(e) {
     e.preventDefault();
-    this.props.onAction(this.state.name, this.state.cat, this.state.amount);
+    this.props.onAction(e, {
+      id: this.props.transaction.id,
+      name: this.state.name,
+      category: this.state.cat,
+      amount: this.state.amount,
+      checked: true,
+    });
   }
   onNameChange(e) {
     this.setState(() => ({
@@ -38,7 +44,7 @@ class EditDialog extends React.Component {
   render() {
     return (
       <Dialog
-        onAction={this.props.onAction}
+        onAction={this.onAction}
         onClose={this.props.onClose}
         name="Edit Transaction"
       >

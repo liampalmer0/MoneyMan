@@ -11,9 +11,7 @@ export default class Transactions extends Component {
       editIsOpen: false,
       deleteIsOpen: false,
       addIsOpen: false,
-      rowCount: 0,
       currentTransaction: {},
-      selected: [],
     };
     this.handleClickAdd = this.handleClickAdd.bind(this);
     this.handleClickEdit = this.handleClickEdit.bind(this);
@@ -21,14 +19,18 @@ export default class Transactions extends Component {
     this.onAddRow = this.onAddRow.bind(this);
     this.onUpdateRow = this.onUpdateRow.bind(this);
     this.onDeleteRow = this.onDeleteRow.bind(this);
+    this.onCheckChange = this.onCheckChange.bind(this);
+    this.onCheckAll = this.onCheckAll.bind(this);
   }
-  handleClickEdit(e, data) {
+  handleClickEdit(e) {
     e.preventDefault();
     this.setState((state) => ({
       editIsOpen: !state.editIsOpen,
       deleteIsOpen: false,
       addIsOpen: false,
-      currentTransaction: data,
+      currentTransaction: this.props.transactions[
+        this.props.transactions.findIndex((t) => t.checked === true)
+      ],
     }));
   }
   handleClickDelete(e) {
@@ -47,9 +49,11 @@ export default class Transactions extends Component {
       deleteIsOpen: false,
     }));
   }
-  handleCheckChange(e, data) {
-    // TODO: selected to state.selected list
-    console.log(data);
+  onCheckChange(e, data) {
+    this.props.onCheckChange(e, data);
+  }
+  onCheckAll(e) {
+    this.props.onCheckAll(e);
   }
 
   onAddRow(transaction) {
@@ -59,12 +63,12 @@ export default class Transactions extends Component {
   onUpdateRow(e, transaction) {
     e.preventDefault();
     this.setState(() => ({ editIsOpen: false }));
-    this.props.onUpdateRow(...transaction);
+    this.props.onUpdateRow(transaction);
   }
   onDeleteRow(e, transaction) {
     e.preventDefault();
     this.setState(() => ({ deleteIsOpen: false }));
-    this.props.onUpdateRow(...transaction);
+    this.props.onDeleteRow(transaction);
   }
 
   render() {
@@ -75,15 +79,15 @@ export default class Transactions extends Component {
           <div className="rowControls">
             <button
               title="Edit"
-              onClick={this.onClickEdit}
-              disabled={this.state.selected.length === 0}
+              onClick={this.handleClickEdit}
+              disabled={this.props.checkedCount !== 1}
             >
               <span className="fas fa-pen"></span>
             </button>
             <button
               title="Delete"
-              onClick={this.props.onClickDelete}
-              disabled={this.state.selected.length === 0}
+              onClick={this.handleClickDelete}
+              disabled={this.props.checkedCount < 1 && !this.props.allChecked}
             >
               <span className="fas fa-trash-alt"></span>
             </button>
@@ -94,7 +98,9 @@ export default class Transactions extends Component {
         </div>
         <TransactionTable
           transactions={this.props.transactions}
-          onCheckChange={this.handleCheckChange}
+          onCheckChange={this.onCheckChange}
+          allChecked={this.props.allChecked}
+          onCheckAll={this.onCheckAll}
         ></TransactionTable>
         {this.state.addIsOpen && (
           <AddDialog

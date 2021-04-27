@@ -5,28 +5,30 @@ import TransactionRow from "./TransactionRow.js";
 export default class TransactionTable extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      rowId: -1,
-    };
     this.onCheckChange = this.onCheckChange.bind(this);
+    this.onCheckAll = this.onCheckAll.bind(this);
   }
 
   onCheckChange(e, data) {
     this.props.onCheckChange(e, data);
   }
+  onCheckAll(e) {
+    this.props.onCheckAll(e);
+  }
 
   render() {
     const rows = [];
-    // assign key as prop as id from data here
-    // inside of row, access the key prop to tell higher functions what to edit/delete
-    // datalist -> react row -> event -> handle/update -> rerender changed data
     if (this.props.transactions.length !== 0) {
       this.props.transactions.forEach((transaction) => {
+        let isChecked = this.props.allChecked
+          ? this.props.allChecked
+          : transaction.checked;
         rows.push(
           <TransactionRow
             transaction={transaction}
             key={transaction.id}
             onCheckChange={this.onCheckChange}
+            checked={!!isChecked}
           />
         );
       });
@@ -38,7 +40,13 @@ export default class TransactionTable extends React.Component {
           <thead>
             <tr>
               <th>
-                <input type="checkbox" disabled={this.props.transactions.length === 0} />
+                <input
+                  className="check-all"
+                  type="checkbox"
+                  disabled={this.props.transactions.length === 0}
+                  checked={this.props.allChecked}
+                  onChange={this.onCheckAll}
+                />
               </th>
               <th>Name</th>
               <th>Category</th>

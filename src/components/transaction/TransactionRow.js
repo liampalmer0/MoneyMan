@@ -8,7 +8,10 @@ export default class TransactionRow extends React.Component {
   }
 
   onCheckChange(e) {
-    this.props.onCheckChange(e, this.props.transaction);
+    this.props.onCheckChange(e, {
+      id: this.props.transaction.id,
+      isChecked: e.target.checked,
+    });
   }
 
   render() {
@@ -16,7 +19,12 @@ export default class TransactionRow extends React.Component {
     return (
       <tr>
         <td>
-          <input type="checkbox" onChange={this.onCheckChange} />
+          <input
+            type="checkbox"
+            onChange={this.onCheckChange}
+            checked={this.props.checked}
+            label={transaction.id}
+          />
         </td>
         <td>{transaction.name}</td>
         <td>{transaction.category}</td>

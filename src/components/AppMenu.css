@@ -1,6 +1,3 @@
-.appMenu {
-  position: relative;
-}
 .appMenu > .bar {
   background-color: rgb(203, 238, 162);
   margin: 0;
@@ -22,7 +19,13 @@
   cursor: pointer;
   color: #3b4626;
 }
-.appMenu > .drawer {
+.appMenu > .drawer-wrapper {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  position: absolute;
+}
+.appMenu .drawer {
   z-index: 1;
   position: absolute;
   left: 0;
@@ -31,32 +34,32 @@
   justify-content: flex-start;
   background-color: white;
   padding: 1rem;
-  height: 90vh;
+  height: 100%;
   width: 25%;
 }
-.appMenu > .drawer > .menu {
+.appMenu .drawer > .menu {
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-around;
   width: 90%;
   margin: 0 auto;
 }
-.appMenu > .drawer > .menu > * {
+.appMenu .drawer > .menu > * {
   margin: 1rem 0rem;
 }
-.appMenu > .drawer button {
+.appMenu .drawer button {
   background-color: rgb(203, 238, 162);
   padding: 0.5rem 1.25rem;
   font-size: 1rem;
   margin: auto;
 }
-.appMenu > .drawer button:hover {
+.appMenu .drawer button:hover {
   background-color: rgb(177, 243, 119);
 }
-.appMenu > .drawer button:active {
+.appMenu .drawer button:active {
   transition: ease-out 0.1s;
   transform: scale(1.05);
 }
-.appMenu > .drawer button > span.fas {
+.appMenu .drawer button > span.fas {
   padding-right: 0.5rem;
 }

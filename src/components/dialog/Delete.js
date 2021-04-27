@@ -5,12 +5,13 @@ class DeleteDialog extends React.Component {
   render() {
     return (
       <Dialog
-        isOpen={this.props.isOpen}
-        handleAction={this.props.handleAction}
-        handleClose={this.props.handleClose}
+        onAction={this.props.onAction}
+        onClose={this.props.onClose}
+        name="Delete Transaction(s)"
       >
-        <span>Delete</span>
-        <span>Are you sure you want to delete this transaction?</span>
+        <span>
+          Are you sure you want to delete the selected transaction(s)?
+        </span>
         <div className="controls">
           <input type="submit" value="Delete"></input>
         </div>

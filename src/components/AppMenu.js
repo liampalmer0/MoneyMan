@@ -5,6 +5,7 @@ export default class AppMenu extends Component {
   constructor(props) {
     super(props);
     this.toggleDrawer = this.toggleDrawer.bind(this);
+    this.handleClickOff = this.handleClickOff.bind(this);
     this.state = {
       drawerVisible: false,
     };
@@ -13,6 +14,11 @@ export default class AppMenu extends Component {
     this.setState((state) => ({
       drawerVisible: !state.drawerVisible,
     }));
+  }
+  handleClickOff(e) {
+    if (e.target.className === "drawer-wrapper") {
+      this.toggleDrawer(e);
+    }
   }
   render() {
     return (
@@ -25,17 +31,19 @@ export default class AppMenu extends Component {
           <h1 className="mainHeader">Money Man</h1>
         </div>
         {this.state.drawerVisible && (
-          <div className="drawer">
-            <div className="menu">
-              <button onClick={this.props.onClickNew}>
-                <span className="fas fa-plus"></span>New
-              </button>
-              <button onClick={this.props.onCickOpen}>
-                <span className="fas fa-folder-open"></span>Open
-              </button>
-              <button onClick={this.props.onClickSave}>
-                <span className="fas fa-save"></span>Save
-              </button>
+          <div className="drawer-wrapper" onClick={this.handleClickOff}>
+            <div className="drawer">
+              <div className="menu">
+                <button onClick={this.props.onClickNew}>
+                  <span className="fas fa-plus"></span>New
+                </button>
+                <button onClick={this.props.onCickOpen}>
+                  <span className="fas fa-folder-open"></span>Open
+                </button>
+                <button onClick={this.props.onClickSave}>
+                  <span className="fas fa-save"></span>Save
+                </button>
+              </div>
             </div>
           </div>
         )}

@@ -2,28 +2,28 @@
   "transactions": [
     {
       "id": 1,
-      "amount": 60.12,
+      "amount": -60.12,
       "name": "Kroger",
       "category": "food",
       "checked": false
     },
     {
       "id": 2,
-      "amount": 40.34,
+      "amount": -40.34,
       "name": "Jewel Osco",
       "category": "food",
       "checked": false
     },
     {
       "id": 3,
-      "amount": 11.0,
+      "amount": -11.0,
       "name": "Downtown Parking",
       "category": "misc",
       "checked": false
     },
     {
       "id": 4,
-      "amount": 15.78,
+      "amount": -15.78,
       "name": "Speedway",
       "category": "gas",
       "checked": false

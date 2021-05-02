@@ -2,14 +2,28 @@ import { Component } from "react";
 import "./App.css";
 import AppMenu from "./components/AppMenu";
 import Transactions from "./components/transaction/Transactions.js";
+import CategoryPie from "./components/vis/CategoryPie";
+import LineGraph from "./components/vis/LineGraph";
+import Stats from "./components/vis/Stats";
+import { calcPcSpent, calcCatsAndSums } from "./utils/calculator";
 
-class App extends Component {
+const tempLineData = [
+  { name: "Wk 1", uv: 400 },
+  { name: "Wk 2", uv: 600 },
+  { name: "Wk 3", uv: 300 },
+  { name: "Wk 4", uv: 200 },
+];
+
+export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       transactions: [],
       allChecked: false,
       checkCt: 0,
+      pieData: [],
+      percentSpent: 0,
+      sums: { income: 0, expenses: 0 },
     };
     this.addTransaction = this.addTransaction.bind(this);
     this.updateTransaction = this.updateTransaction.bind(this);
@@ -19,10 +33,25 @@ class App extends Component {
     this.handleNew = this.handleNew.bind(this);
     this.handleLoad = this.handleLoad.bind(this);
     this.handleSave = this.handleSave.bind(this);
+    this.updateVis = this.updateVis.bind(this);
   }
+  updateVis() {
+    const data = calcCatsAndSums(this.state.transactions);
+    this.setState(() => ({
+      pieData: data.expenses,
+      percentSpent: calcPcSpent(data.incomeSum, data.expenseSum),
+      sums: { income: data.incomeSum, expenses: data.expenseSum },
+    }));
+  }
+
   handleLoadResponse(data) {
     console.log(`Got "${data}" from main process`);
-    this.setState(() => ({ transactions: [...data] }));
+    this.setState(
+      () => ({ transactions: [...data] }),
+      () => {
+        this.updateVis();
+      }
+    );
   }
   handleSaveResponse(data) {
     console.log(JSON.stringify(data));
@@ -37,6 +66,7 @@ class App extends Component {
   handleSave() {
     window.api.send("save", "save please");
   }
+
   handleCheckAll(e) {
     this.setState((state) => ({
       allChecked: !state.allChecked,
@@ -61,49 +91,62 @@ class App extends Component {
       };
     });
   }
+
   addTransaction(name, cat, amount) {
-    this.setState((state) => ({
-      transactions: [
-        ...state.transactions,
-        {
-          id: state.transactions.length + 1,
-          amount: amount,
-          name: name,
-          category: cat,
-          checked: false,
-        },
-      ],
-    }));
+    this.setState(
+      (state) => ({
+        transactions: [
+          ...state.transactions,
+          {
+            id: state.transactions.length + 1,
+            amount: amount,
+            name: name,
+            category: cat,
+            checked: false,
+          },
+        ],
+      }),
+      () => this.updateVis()
+    );
   }
   updateTransaction(transaction) {
-    this.setState((state) => {
-      let transactions = state.transactions;
-      transactions[
-        transactions.findIndex((t) => t.id === transaction.id)
-      ] = transaction;
-      return { transactions: transactions };
-    });
+    this.setState(
+      (state) => {
+        let transactions = state.transactions;
+        transactions[
+          transactions.findIndex((t) => t.id === transaction.id)
+        ] = transaction;
+        return { transactions: transactions };
+      },
+      () => this.updateVis()
+    );
   }
   deleteTransaction(e) {
     if (this.state.allChecked) {
-      this.setState(() => ({
-        transactions: [],
-        allChecked: false,
-        checkCt: 0,
-      }));
+      this.setState(
+        () => ({
+          transactions: [],
+          allChecked: false,
+          checkCt: 0,
+        }),
+        () => this.updateVis()
+      );
     } else {
-      this.setState((state) => {
-        let transactions = [];
-        let idCt = 0;
-        state.transactions.forEach((t) => {
-          if (t.checked === false) {
-            t.id = idCt;
-            idCt++;
-            transactions.push(t);
-          }
-        });
-        return { transactions, checkCt: 0 };
-      });
+      this.setState(
+        (state) => {
+          let transactions = [];
+          let idCt = 0;
+          state.transactions.forEach((t) => {
+            if (t.checked === false) {
+              t.id = idCt;
+              idCt++;
+              transactions.push(t);
+            }
+          });
+          return { transactions, checkCt: 0 };
+        },
+        () => this.updateVis()
+      );
     }
   }
   componentDidMount() {
@@ -115,6 +158,7 @@ class App extends Component {
       this.handleSaveResponse(data);
     });
   }
+
   render() {
     return (
       <div className="app">
@@ -124,9 +168,22 @@ class App extends Component {
           onClickSave={this.handleSave}
         ></AppMenu>
         <div className="container">
-          <div className="box"></div> {/* Will become Stats component */}
-          <div className="box2"></div> {/* Will become a vis component */}
-          <div className="box3"></div> {/* Will become another vis component */}
+          <div className="box stats">
+            <p>Overview</p>
+            <Stats
+              spent={this.state.percentSpent}
+              income={this.state.sums.income}
+              expenses={this.state.sums.expenses}
+            ></Stats>
+          </div>
+          <div className="box categories">
+            <p>Categories</p>
+            <CategoryPie data={this.state.pieData}></CategoryPie>
+          </div>
+          <div className="box history">
+            <p>History</p>
+            <LineGraph data={tempLineData}></LineGraph>
+          </div>
           <Transactions
             onAddRow={this.addTransaction}
             onUpdateRow={this.updateTransaction}
@@ -142,5 +199,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;

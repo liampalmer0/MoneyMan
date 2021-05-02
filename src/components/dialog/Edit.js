@@ -68,14 +68,17 @@ class EditDialog extends React.Component {
         <input
           type="number"
           name="amount"
-          placeholder="0.00"
           value={this.state.amount}
           onChange={this.onAmountChange}
+          placeholder="0.00"
+          step="0.01"
           required
         />
         <div className="controls">
-          <button onClick={this.props.onClose}>Cancel</button>
-          <input type="submit" name="Save" value="Save" />
+          <button type="button" onClick={this.props.onClose}>
+            Cancel
+          </button>
+          <button type="submit">Save</button>
         </div>
       </Dialog>
     );

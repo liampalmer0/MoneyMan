@@ -1,5 +1,6 @@
 import React from "react";
 import "./Transaction.css";
+import { moneyFmt } from "../../utils/formats";
 
 export default class TransactionRow extends React.Component {
   constructor(props) {
@@ -28,7 +29,7 @@ export default class TransactionRow extends React.Component {
         </td>
         <td>{transaction.name}</td>
         <td>{transaction.category}</td>
-        <td>{transaction.amount}</td>
+        <td>{moneyFmt.format(transaction.amount)}</td>
       </tr>
     );
   }

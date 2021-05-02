@@ -29,7 +29,7 @@
 }
 button {
   border-radius: 5px;
-  border:none;
+  border: none;
   padding: 0.5rem 1rem;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
   cursor: pointer;
@@ -40,20 +40,32 @@ button:active {
 }
 
 .container {
-  display: grid;
-  grid-template-columns: 3fr repeat(2, 4fr);
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
   width: 95%;
   margin: auto auto 2rem auto;
-  gap: 0.5rem;
 }
 .container > div:last-child {
-  grid-column: 1 / -1;
+  flex: 1 1 100%;
 }
-.box,
-.box2,
-.box3 {
+.box {
   height: 350px;
+  margin: 1rem 0 0 0;
   background-color: #ffffff;
-  margin-top: 1rem;
   border-radius: 5px;
+}
+.box > * {
+  margin: auto;
+}
+
+.box.stats {
+  flex: 1 1 auto;
+}
+.box.categories {
+  flex: 1 2 auto;
+}
+.box.history {
+  padding: 0 1rem 0 0;
+  flex: 1 2 auto;
 }

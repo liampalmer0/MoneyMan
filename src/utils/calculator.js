@@ -3,7 +3,21 @@ const calcCatsAndSums = (transactions) => {
   let expSum = 0;
   let expCats = new Map();
   let incCats = new Map();
+  let dateSums = new Map();
   transactions.forEach((t) => {
+    if (!dateSums.has(t.date)) {
+      dateSums.set(t.date, {
+        name: t.date,
+        date: new Date(t.date),
+        value: parseFloat(t.amount),
+      });
+    } else {
+      dateSums.set(t.date, {
+        name: t.date,
+        date: new Date(t.date),
+        value: dateSums.get(t.date).value + parseFloat(t.amount),
+      });
+    }
     let amount = parseFloat(t.amount);
     // if an income item
     if (amount > 0) {
@@ -40,6 +54,7 @@ const calcCatsAndSums = (transactions) => {
     income: Array.from(incCats.values()),
     incomeSum: incSum,
     expenseSum: expSum * -1,
+    dateSums: Array.from(dateSums.values()).sort((a, b) => a.date - b.date),
   };
 };
 

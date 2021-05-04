@@ -1,0 +1,16 @@
+:root {
+  --fg: #292e21;
+  --bkg: #f6f6ec;
+  --bkg-alt: var(--bkg);
+  --shadow: rgba(0, 0, 0, 0.15);
+
+  --primary: #bedc98;
+  --primary-alt: #cfe5b3;
+  --primary-alpha: rgba(207, 229, 179, 0.25);
+  --on-primary: var(--fg);
+
+  --secondary: #f78e69;
+  --secondary-alt: rgb(255, 115, 64);
+  --secondary-alpha: rgba(255, 115, 64, 0.25);
+  --on-secondary: var(--fg);
+}

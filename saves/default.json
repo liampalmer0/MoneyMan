@@ -2,6 +2,7 @@
   "transactions": [
     {
       "id": 1,
+      "date": "2021-05-04",
       "amount": -60.12,
       "name": "Kroger",
       "category": "food",
@@ -9,6 +10,7 @@
     },
     {
       "id": 2,
+      "date": "2021-05-06",
       "amount": -40.34,
       "name": "Jewel Osco",
       "category": "food",
@@ -16,6 +18,7 @@
     },
     {
       "id": 3,
+      "date": "2021-05-01",
       "amount": -11.0,
       "name": "Downtown Parking",
       "category": "misc",
@@ -23,10 +26,20 @@
     },
     {
       "id": 4,
+      "date": "2021-05-04",
       "amount": -15.78,
       "name": "Speedway",
       "category": "gas",
       "checked": false
+    },
+    {
+      "id": 5,
+      "date": "2021-05-03",
+      "amount": 144,
+      "name": "Job",
+      "category": "income",
+      "checked": false
     }
+
   ]
 }

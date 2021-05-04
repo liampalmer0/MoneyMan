@@ -73,11 +73,12 @@ export default class Transactions extends Component {
 
   render() {
     return (
-      <div className="tContainer">
-        <div className="tableControls">
+      <div className="table-container">
+        <div className="table-controls">
           <h2>Transactions</h2>
-          <div className="rowControls">
+          <div className="row-controls">
             <button
+              className="btn-edit"
               title="Edit"
               onClick={this.handleClickEdit}
               disabled={this.props.checkedCount !== 1}
@@ -85,6 +86,7 @@ export default class Transactions extends Component {
               <span className="fas fa-pen"></span>
             </button>
             <button
+              className="btn-delete"
               title="Delete"
               onClick={this.handleClickDelete}
               disabled={this.props.checkedCount < 1 && !this.props.allChecked}

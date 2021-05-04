@@ -27,6 +27,7 @@ export default class TransactionRow extends React.Component {
             label={transaction.id}
           />
         </td>
+        <td>{transaction.date}</td>
         <td>{transaction.name}</td>
         <td>{transaction.category}</td>
         <td>{moneyFmt.format(transaction.amount)}</td>

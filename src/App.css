@@ -3,30 +3,8 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+@import url(./colors.css);
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 button {
   border-radius: 5px;
   border: none;
@@ -35,7 +13,7 @@ button {
   cursor: pointer;
 }
 
-button:active {
+button:enabled:active {
   box-shadow: none;
 }
 
@@ -49,16 +27,13 @@ button:active {
 .container > div:last-child {
   flex: 1 1 100%;
 }
+.container h2 {
+  font-size: 1.1rem;
+}
 .box {
-  height: 350px;
   margin: 1rem 0 0 0;
-  background-color: #ffffff;
-  border-radius: 5px;
+  background-color: var(--bkg);
 }
-.box > * {
-  margin: auto;
-}
-
 .box.stats {
   flex: 1 1 auto;
 }

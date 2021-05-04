@@ -7,13 +7,6 @@ import LineGraph from "./components/vis/LineGraph";
 import Stats from "./components/vis/Stats";
 import { calcPcSpent, calcCatsAndSums } from "./utils/calculator";
 
-const tempLineData = [
-  { name: "Wk 1", uv: 400 },
-  { name: "Wk 2", uv: 600 },
-  { name: "Wk 3", uv: 300 },
-  { name: "Wk 4", uv: 200 },
-];
-
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -21,9 +14,10 @@ export default class App extends Component {
       transactions: [],
       allChecked: false,
       checkCt: 0,
-      pieData: [],
+      categoryData: [],
       percentSpent: 0,
       sums: { income: 0, expenses: 0 },
+      historyData: [],
     };
     this.addTransaction = this.addTransaction.bind(this);
     this.updateTransaction = this.updateTransaction.bind(this);
@@ -38,9 +32,10 @@ export default class App extends Component {
   updateVis() {
     const data = calcCatsAndSums(this.state.transactions);
     this.setState(() => ({
-      pieData: data.expenses,
+      categoryData: data.expenses,
       percentSpent: calcPcSpent(data.incomeSum, data.expenseSum),
       sums: { income: data.incomeSum, expenses: data.expenseSum },
+      historyData: data.dateSums,
     }));
   }
 
@@ -92,7 +87,7 @@ export default class App extends Component {
     });
   }
 
-  addTransaction(name, cat, amount) {
+  addTransaction(date, name, cat, amount) {
     this.setState(
       (state) => ({
         transactions: [
@@ -101,6 +96,7 @@ export default class App extends Component {
             id: state.transactions.length + 1,
             amount: amount,
             name: name,
+            date: date,
             category: cat,
             checked: false,
           },
@@ -169,7 +165,7 @@ export default class App extends Component {
         ></AppMenu>
         <div className="container">
           <div className="box stats">
-            <p>Overview</p>
+            <h2>Overview</h2>
             <Stats
               spent={this.state.percentSpent}
               income={this.state.sums.income}
@@ -177,12 +173,12 @@ export default class App extends Component {
             ></Stats>
           </div>
           <div className="box categories">
-            <p>Categories</p>
-            <CategoryPie data={this.state.pieData}></CategoryPie>
+            <h2>Categories</h2>
+            <CategoryPie data={this.state.categoryData}></CategoryPie>
           </div>
           <div className="box history">
-            <p>History</p>
-            <LineGraph data={tempLineData}></LineGraph>
+            <h2>History</h2>
+            <LineGraph data={this.state.historyData}></LineGraph>
           </div>
           <Transactions
             onAddRow={this.addTransaction}

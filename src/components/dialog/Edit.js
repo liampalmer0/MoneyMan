@@ -9,10 +9,12 @@ class EditDialog extends React.Component {
       name: this.props.transaction.name,
       cat: this.props.transaction.category,
       amount: this.props.transaction.amount,
+      date: this.props.transaction.date,
     };
     this.onAction = this.onAction.bind(this);
     this.onAmountChange = this.onAmountChange.bind(this);
     this.onNameChange = this.onNameChange.bind(this);
+    this.onDateChange = this.onDateChange.bind(this);
     this.onCatChange = this.onCatChange.bind(this);
     this.onAmountChange = this.onAmountChange.bind(this);
   }
@@ -21,6 +23,7 @@ class EditDialog extends React.Component {
     this.props.onAction(e, {
       id: this.props.transaction.id,
       name: this.state.name,
+      date: this.state.date,
       category: this.state.cat,
       amount: this.state.amount,
       checked: true,
@@ -29,6 +32,11 @@ class EditDialog extends React.Component {
   onNameChange(e) {
     this.setState(() => ({
       name: e.target.value,
+    }));
+  }
+  onDateChange(e) {
+    this.setState(() => ({
+      date: e.target.value,
     }));
   }
   onCatChange(e) {
@@ -49,12 +57,19 @@ class EditDialog extends React.Component {
         name="Edit Transaction"
       >
         <input
+          type="date"
+          name="date"
+          value={this.state.date}
+          onChange={this.onDateChange}
+          autoFocus
+          required
+        />
+        <input
           type="text"
           name="name"
           placeholder="Name"
           value={this.state.name}
           onChange={this.onNameChange}
-          autoFocus
           required
         />
         <input

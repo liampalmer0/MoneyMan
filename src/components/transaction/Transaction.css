@@ -1,53 +1,64 @@
-.tContainer {
+@import url(../../colors.css);
+.table-container {
   position: relative;
-  background-color: white;
-  padding: 1rem;
+  background-color: var(--bkg);
+  padding: 1rem 0;
   margin-top: 1rem;
   border-radius: 5px;
 }
-.tableControls {
+.table-controls {
   display: flex;
   flex-flow: row nowrap;
   width: 100%;
   margin: 1rem auto;
   justify-content: flex-start;
+  align-items: center;
 }
-.tableControls h2 {
+.table-controls h2 {
   margin: 0;
   padding: 0 1rem 0 0;
 }
-.tableControls > button {
+.table-controls > button {
   position: absolute;
-  right: 1rem;
-  top: 1rem;
-  background-color: rgb(209, 255, 168);
+  right: 0rem;
+  top: 1.5rem;
+  background-color: var(--secondary);
+  color: var(--on-secondary);
   border-radius: 100%;
   height: 3rem;
   width: 3rem;
   padding: 0;
 }
-.tableControls > button:hover {
-  background-color: rgb(177, 243, 119);
+.table-controls > button:hover {
+  background-color: var(--secondary-alt);
   transition: ease-out background-color 0.2s;
 }
-.transactionTable {
+.row-controls .btn-edit {
+  border-radius: 5px 0 0 5px;
+}
+.row-controls .btn-delete {
+  border-radius: 0 5px 5px 0;
+}
+.transaction-table {
   overflow-x: scroll;
 }
-.transactionTable > table {
+.transaction-table > table {
   width: 100%;
   margin: auto;
   border-collapse: collapse;
-  background-color: #fefefe;
+  background-color: var(--bkg);
   border-radius: 5px;
 }
-.transactionTable > table tr {
+.transaction-table > table tr {
   border-bottom: 1px #cbcbcb solid;
 }
-.transactionTable > table tbody tr:hover {
-  background-color: #f7f7f7;
+.transaction-table > table tbody tr:hover {
+  background-color: var(--primary-alpha);
 }
 th {
   font-weight: bold;
+  background-color: var(--primary-alt);
+  color: var(--on-primary);
 }
 th,
 td {
@@ -63,35 +74,4 @@ th:last-child,
 td:last-child {
   text-align: right;
   padding-right: 1rem;
-}
-td > .rowControls {
-  display: flex;
-  flex-flow: row;
-  justify-content: flex-end;
-}
-td > .rowControls > button {
-  background-color: white;
-  padding: 0.5rem 0.25rem;
-  border-radius: 3px;
-  padding: 0.5rem 0.25rem;
-  margin: 0.5rem;
-  font-size: 1rem;
-  width: 100%;
-  max-width: 5rem;
-  flex: 1 1 1;
-  border: 1px solid black;
-}
-td > .rowControls > button:first-child {
-  background-color: rgb(220, 243, 245);
-}
-td > .rowControls > button:last-child {
-  background-color: rgb(255, 185, 185);
-}
-td > .rowControls > button:first-child:hover {
-  background-color: rgb(146, 228, 255);
-  transition: ease-out background-color 0.2s;
-}
-td > .rowControls > button:last-child:hover {
-  transition: ease-out background-color 0.2s;
-  background-color: rgb(255, 86, 86);
 }

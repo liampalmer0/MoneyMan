@@ -8,16 +8,23 @@ class Add extends React.Component {
       name: "",
       cat: "",
       amount: "",
+      date: "",
     };
     this.onAction = this.onAction.bind(this);
     this.onAmountChange = this.onAmountChange.bind(this);
     this.onNameChange = this.onNameChange.bind(this);
+    this.onDateChange = this.onDateChange.bind(this);
     this.onCatChange = this.onCatChange.bind(this);
     this.onAmountChange = this.onAmountChange.bind(this);
   }
   onAction(e) {
     e.preventDefault();
-    this.props.onAction([this.state.name, this.state.cat, this.state.amount]);
+    this.props.onAction([this.state.date, this.state.name, this.state.cat, this.state.amount]);
+  }
+  onDateChange(e) {
+    this.setState(() => ({
+      date: e.target.value,
+    }));
   }
   onNameChange(e) {
     this.setState(() => ({
@@ -43,12 +50,19 @@ class Add extends React.Component {
         name="Add Transaction"
       >
         <input
+          type="date"
+          name="date"
+          value={this.state.date}
+          onChange={this.onDateChange}
+          autoFocus
+          required
+        />
+        <input
           type="text"
           name="name"
           value={this.state.name}
           onChange={this.onNameChange}
           placeholder="Name"
-          autoFocus
           required
         />
         <input

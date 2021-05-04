@@ -11,11 +11,14 @@ import {
 export default class LineGraph extends Component {
   render() {
     return (
-      <ResponsiveContainer width="95%" height="90%">
-        <LineChart width={400} height={400} data={this.props.data}>
-          <Line type="monotone" dataKey="uv" stroke="#8884d8" />
+      <ResponsiveContainer width="93%" height="90%">
+        <LineChart
+          data={this.props.data}
+          margin={{ top: 5, bottom: 10, right: 5, left: 5 }}
+        >
+          <Line type="monotone" dataKey="value" stroke="#F78E69" />
           <CartesianGrid stroke="#ccc" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey="name"/>
           <YAxis />
         </LineChart>
       </ResponsiveContainer>

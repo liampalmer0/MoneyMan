@@ -35,7 +35,7 @@ export default class TransactionTable extends React.Component {
     }
 
     return (
-      <div className="transactionTable">
+      <div className="transaction-table">
         <table>
           <thead>
             <tr>
@@ -48,6 +48,7 @@ export default class TransactionTable extends React.Component {
                   onChange={this.onCheckAll}
                 />
               </th>
+              <th>Date</th>
               <th>Name</th>
               <th>Category</th>
               <th>Amount</th>

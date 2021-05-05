@@ -1,10 +1,11 @@
 import { Component } from "react";
 import { moneyFmt } from "../../utils/formats";
+import "./vis.css";
 
 export default class Stats extends Component {
   render() {
     return (
-      <div className="stats">
+      <div>
         <div className="overview">
           <p>
             Income: <span>{moneyFmt.format(this.props.income)}</span>
@@ -12,10 +13,9 @@ export default class Stats extends Component {
           <p>
             Expenses: <span>{moneyFmt.format(this.props.expenses)}</span>
           </p>
-        </div>
-        <div className="percent-spent">
-          <span>Income Spent: </span>
-          <span>{this.props.spent}%</span>
+          <p>
+            Income Spent: <span>{this.props.spent}%</span>
+          </p>
         </div>
       </div>
     );

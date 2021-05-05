@@ -1,0 +1,17 @@
+.overview {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+}
+.overview p {
+  width: 100%;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.overview p > span {
+  display: block;
+  font-size: 1.3rem;
+  font-weight: normal;
+  padding: 0.5rem;
+}

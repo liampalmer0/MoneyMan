@@ -3,10 +3,12 @@ const path = require("path");
 const { save, load } = require("./fileHandler");
 
 let win;
+let activeFile = "";
 function createWindow() {
   win = new BrowserWindow({
     width: 1000,
     height: 600,
+    title: "Money Man",
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -38,43 +40,107 @@ app.on("activate", () => {
   }
 });
 
+/**
+ * Returns base file name from given file path
+ *
+ * @param {String} filepath
+ * @returns {String} base filename
+ */
+function getBasename(filepath) {
+  if (process.platform === "win32") {
+    return path.win32.basename(filepath, ".json");
+  } else {
+    return path.posix.basename(filepath, ".json");
+  }
+}
+
+/**
+ * Updates window title with given filename
+ *
+ * @param {String} filename
+ */
+function updateTitle(filename) {
+  win.title = `Money Man - ${filename}`;
+}
+
+/**
+ * Load saved money man file
+ * Sets activeFile newly loaded file
+ */
 async function doLoad() {
   try {
     let chooser = await dialog.showOpenDialog(win, {
       filters: [{ name: "JSON", extensions: ["json"] }],
       properties: ["openFile", "dontAddToRecent"],
     });
+
     if (chooser.filePaths.length === 1 && !chooser.canceled) {
-      let transactions = load(chooser.filePaths[0]);
-      win.webContents.send("load", transactions);
+      activeFile = chooser.filePaths[0];
+      let transactions = load(activeFile);
+      filename = getBasename(activeFile);
+      updateTitle(filename);
+      win.webContents.send("load", {
+        status: 200,
+        msg: "Load successful",
+        filename,
+        transactions,
+      });
     } else if (chooser.filePaths.length !== 1 && !chooser.canceled) {
       throw new Error("Load failed");
     }
   } catch (err) {
     dialog.showErrorBox("Load Failed", "Selected file could not be opened.");
-    res = { status: 500, msg: "Error: Load Failed" };
+    win.webContents.send("load", { status: 500, msg: "Error: Load Failed" });
   }
 }
 
-async function doSave(event, args) {
+/**
+ * Handles saving to existing file (`save`) and to a new file (`saveAs`)
+ * For `saveAs`, the activeFile is set to the newly saved file
+ *
+ * @param {*} event
+ * @param {*} data Data to save
+ * @param {Boolean} saveAs Flag for `saveAs`
+ */
+async function doSave(event, data, saveAs = false) {
   let res = {};
   try {
-    let chooser = await dialog.showSaveDialog(win, {
-      defaultPath: "money-man-save.json",
-      filters: [{ name: "JSON", extensions: ["json"] }],
-      properties: [
-        "showOverwriteConfirmation",
-        "createDirectory",
-        "dontAddToRecent",
-      ],
-    });
-    if (chooser.filePath && !chooser.canceled) {
-      save(args.transactions, path.join(chooser.filePath));
-      res = { status: 200, msg: "Save Successful" };
-    } else if (chooser.canceled) {
-      res = { status: 200, msg: "Save Canceled" };
+    if (!activeFile || saveAs) {
+      let chooser = await dialog.showSaveDialog(win, {
+        defaultPath: "money-man-save.json",
+        filters: [{ name: "JSON", extensions: ["json"] }],
+        properties: [
+          "showOverwriteConfirmation",
+          "createDirectory",
+          "dontAddToRecent",
+        ],
+      });
+
+      let filename = "";
+      if (chooser.filePath && !chooser.canceled) {
+        activeFile = chooser.filePath;
+        save(data.transactions, activeFile);
+        filename = getBasename(activeFile);
+        updateTitle(filename);
+        res = {
+          status: 200,
+          msg: "Save Successful",
+          filename,
+        };
+      } else if (chooser.canceled) {
+        res = { status: 200, msg: "Save Canceled" };
+      } else {
+        throw new Error("Save Failed");
+      }
     } else {
-      throw new Error("Save Failed");
+      save(data.transactions, path.join(activeFile));
+      filename = getBasename(activeFile);
+      updateTitle(filename);
+      res = {
+        status: 200,
+        msg: "Save Successful",
+        filename,
+      };
     }
   } catch (err) {
     res = { status: 500, msg: "Error: Save Failed" };
@@ -85,6 +151,9 @@ async function doSave(event, args) {
 
 ipcMain.on("load", doLoad);
 ipcMain.on("save", doSave);
+ipcMain.on("saveAs", (e, args) => {
+  doSave(e, args, true);
+});
 
 Menu.setApplicationMenu(
   Menu.buildFromTemplate([
@@ -96,7 +165,9 @@ Menu.setApplicationMenu(
           label: "New",
           accelerator: process.platform === "darwin" ? "Cmd+n" : "Ctrl+n",
           click: () => {
-            console.log("Clicked menu New");
+            dialog.showMessageBox(win, {
+              message: "Sorry! This feature has not been implemented yet",
+            });
           },
         },
         { type: "separator" },
@@ -112,7 +183,19 @@ Menu.setApplicationMenu(
           label: "Save",
           accelerator: process.platform === "darwin" ? "Cmd+s" : "Ctrl+s",
           click: () => {
-            win.webContents.send("reqSave");
+            if (activeFile) {
+              win.webContents.send("reqSave");
+            } else {
+              win.webContents.send("reqSaveAs");
+            }
+          },
+        },
+        {
+          label: "Save As...",
+          accelerator:
+            process.platform === "darwin" ? "Cmd+Shift+s" : "Ctrl+Shift+s",
+          click: () => {
+            win.webContents.send("reqSaveAs");
           },
         },
         { type: "separator" },

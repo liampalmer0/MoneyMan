@@ -24,24 +24,27 @@ export default class AppMenu extends Component {
     return (
       <div className="appMenu">
         <div className="bar">
-          <span
-            className="burger fas fa-bars"
-            onClick={this.toggleDrawer}
-          ></span>
-          <h1 className="mainHeader">Money Man</h1>
+          <button onClick={this.toggleDrawer}>
+            <span className="burger fas fa-bars"></span>
+          </button>
+          <h1 className="mainHeader">
+            Money Man{" "}
+            {this.props.filename ? `- ${this.props.filename.slice(0, 25)}` : ""}
+            {this.props.unsaved ? "*" : ""}
+          </h1>
         </div>
         {this.state.drawerVisible && (
           <div className="drawer-wrapper" onClick={this.handleClickOff}>
             <div className="drawer">
               <div className="menu">
-                <button onClick={this.props.onClickNew}>
-                  <span className="fas fa-plus"></span>New
+                <button onClick={this.props.onClickNew} title="New file">
+                  <span className="fas fa-file"></span>
                 </button>
-                <button onClick={this.props.onCickOpen}>
-                  <span className="fas fa-folder-open"></span>Open
+                <button onClick={this.props.onCickOpen} title="Open">
+                  <span className="fas fa-folder-open"></span>
                 </button>
-                <button onClick={this.props.onClickSave}>
-                  <span className="fas fa-save"></span>Save
+                <button onClick={this.props.onClickSave} title="Save">
+                  <span className="fas fa-save"></span>
                 </button>
               </div>
             </div>

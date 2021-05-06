@@ -1,7 +1,7 @@
 const { contextBridge, ipcRenderer } = require("electron");
 
 // whitelisted channels
-const CHANNELS = ["new", "save", "load", "reqSave"];
+const CHANNELS = ["new", "save", "saveAs", "load", "reqSave", "reqSaveAs"];
 
 // Expose protected methods that allow the renderer process to use
 // the ipcRenderer without exposing the entire object

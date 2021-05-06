@@ -3,4 +3,4 @@
 
 A simple spending tracking and budgeting app made with Electron and React.
 
-<img src="./moneyman1.png" alt="screenshot of money man" width="45%" height="auto" />
+<img src="./moneyman-react-screenshot.png" alt="screenshot of money man" width="100%" height="auto" />

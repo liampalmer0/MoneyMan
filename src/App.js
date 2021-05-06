@@ -56,10 +56,10 @@ export default class App extends Component {
     window.api.send("new", "create new please");
   }
   handleLoad() {
-    window.api.send("load", "load please");
+    window.api.send("load");
   }
   handleSave() {
-    window.api.send("save", "save please");
+    window.api.send("save", { transactions: this.state.transactions });
   }
 
   handleCheckAll(e) {
@@ -131,7 +131,7 @@ export default class App extends Component {
       this.setState(
         (state) => {
           let transactions = [];
-          let idCt = 0;
+          let idCt = 1;
           state.transactions.forEach((t) => {
             if (t.checked === false) {
               t.id = idCt;
@@ -152,6 +152,9 @@ export default class App extends Component {
     });
     window.api.receive("save", (data) => {
       this.handleSaveResponse(data);
+    });
+    window.api.receive("reqSave", () => {
+      this.handleSave();
     });
   }
 

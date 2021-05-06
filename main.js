@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Menu } = require("electron");
+const { app, BrowserWindow, ipcMain, Menu, dialog } = require("electron");
 const path = require("path");
 const { save, load } = require("./fileHandler");
 
@@ -38,73 +38,101 @@ app.on("activate", () => {
   }
 });
 
-ipcMain.on("load", (event, args) => {
-  console.log(`Got "${args}" from renderer`);
-  const transactions = load();
-  win.webContents.send("load", transactions);
-});
-ipcMain.on("save", (event, args) => {
-  console.log(`Got "${args}" from renderer`);
+async function doLoad() {
+  try {
+    let chooser = await dialog.showOpenDialog(win, {
+      filters: [{ name: "JSON", extensions: ["json"] }],
+      properties: ["openFile", "dontAddToRecent"],
+    });
+    if (chooser.filePaths.length === 1 && !chooser.canceled) {
+      let transactions = load(chooser.filePaths[0]);
+      win.webContents.send("load", transactions);
+    } else if (chooser.filePaths.length !== 1 && !chooser.canceled) {
+      throw new Error("Load failed");
+    }
+  } catch (err) {
+    dialog.showErrorBox("Load Failed", "Selected file could not be opened.");
+    res = { status: 500, msg: "Error: Load Failed" };
+  }
+}
+
+async function doSave(event, args) {
   let res = {};
   try {
-    save(args.transactions, __dirname + "saves/default.json");
-    res = { status: 200, msg: "Save Successful" };
+    let chooser = await dialog.showSaveDialog(win, {
+      defaultPath: "money-man-save.json",
+      filters: [{ name: "JSON", extensions: ["json"] }],
+      properties: [
+        "showOverwriteConfirmation",
+        "createDirectory",
+        "dontAddToRecent",
+      ],
+    });
+    if (chooser.filePath && !chooser.canceled) {
+      save(args.transactions, path.join(chooser.filePath));
+      res = { status: 200, msg: "Save Successful" };
+    } else if (chooser.canceled) {
+      res = { status: 200, msg: "Save Canceled" };
+    } else {
+      throw new Error("Save Failed");
+    }
   } catch (err) {
     res = { status: 500, msg: "Error: Save Failed" };
+  } finally {
+    win.webContents.send("save", res);
   }
-  win.webContents.send("save", res);
-});
+}
 
-const isMac = process.platform === "darwin";
+ipcMain.on("load", doLoad);
+ipcMain.on("save", doSave);
 
-const template = [
-  { role: "appMenu" },
-  {
-    label: "File",
-    submenu: [
-      {
-        label: "New",
-        accelerator: process.platform === "darwin" ? "Cmd+n" : "Ctrl+n",
-        click: () => {
-          console.log("Clicked menu New");
+Menu.setApplicationMenu(
+  Menu.buildFromTemplate([
+    { role: "appMenu" },
+    {
+      label: "File",
+      submenu: [
+        {
+          label: "New",
+          accelerator: process.platform === "darwin" ? "Cmd+n" : "Ctrl+n",
+          click: () => {
+            console.log("Clicked menu New");
+          },
         },
-      },
-      { type: "separator" },
-      {
-        label: "Open...",
-        accelerator: process.platform === "darwin" ? "Cmd+o" : "Ctrl+o",
-        click: () => {
-          console.log("Clicked menu open");
+        { type: "separator" },
+        {
+          label: "Open...",
+          accelerator: process.platform === "darwin" ? "Cmd+o" : "Ctrl+o",
+          click: async () => {
+            await doLoad();
+          },
         },
-      },
-      { type: "separator" },
-      {
-        label: "Save",
-        accelerator: process.platform === "darwin" ? "Cmd+s" : "Ctrl+s",
-        click: () => {
-          console.log("Clicked menu save");
+        { type: "separator" },
+        {
+          label: "Save",
+          accelerator: process.platform === "darwin" ? "Cmd+s" : "Ctrl+s",
+          click: () => {
+            win.webContents.send("reqSave");
+          },
         },
-      },
-      { type: "separator" },
-      isMac ? { role: "close" } : { role: "quit" },
-    ],
-  },
-  { role: "editMenu" },
-  { role: "viewMenu" },
-  { role: "windowMenu" },
-  {
-    role: "help",
-    submenu: [
-      {
-        label: "Learn More",
-        click: async () => {
-          const { shell } = require("electron");
-          await shell.openExternal("https://github.com/liampalmer0/MoneyMan");
+        { type: "separator" },
+        process.platform === "darwin" ? { role: "close" } : { role: "quit" },
+      ],
+    },
+    { role: "editMenu" },
+    { role: "viewMenu" },
+    { role: "windowMenu" },
+    {
+      role: "help",
+      submenu: [
+        {
+          label: "Learn More",
+          click: async () => {
+            const { shell } = require("electron");
+            await shell.openExternal("https://github.com/liampalmer0/MoneyMan");
+          },
         },
-      },
-    ],
-  },
-];
-
-const menu = Menu.buildFromTemplate(template);
-Menu.setApplicationMenu(menu);
+      ],
+    },
+  ])
+);

@@ -9,11 +9,9 @@ function save(transactions, savePath) {
   let data = prepareData(transactions);
   jetpack.write(savePath, data, { atomic: true, jsonIndent: 2 });
 }
-function load(savePath = "./saves/default.json") {
-  console.log(`reading ${savePath}`);
-  const data = jetpack.read(savePath, "json");
-  console.log(data);
-  return data.transactions;
+function load(loadPath) {
+  const data = jetpack.read(loadPath, "json");
+  return data.transactions ? data.transactions : [];
 }
 
 module.exports = {

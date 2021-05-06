@@ -11,13 +11,17 @@
   font-size: 1.4rem;
   margin: auto;
 }
-.appMenu > .bar > .burger {
+.appMenu > .bar > button {
   position: absolute;
-  font-weight: 900;
   left: 1rem;
-  top: 1.1rem;
+  top: 1rem;
+  font-size: 1.2rem;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
 }
-.appMenu > .bar > .burger:hover {
+.appMenu > .bar > button:hover .burger {
   cursor: pointer;
   color: #3b4626;
 }
@@ -48,6 +52,15 @@
   padding: 1rem;
   height: 100%;
   width: auto;
+  animation: slidein 0.2s forwards;
+}
+@keyframes slidein {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
 }
 .appMenu .drawer > .menu {
   display: flex;
@@ -64,6 +77,9 @@
   color: var(--on-secondary);
   padding: 0.5rem 1rem;
   font-size: 1rem;
+  border-radius: 100%;
+  height: 3rem;
+  width: 3rem;
 }
 .appMenu .drawer button:hover {
   background-color: var(--secondary-alt);
@@ -72,7 +88,4 @@
 .appMenu .drawer button:active {
   transition: ease-out 0.1s;
   transform: scale(1.05);
-}
-.appMenu .drawer button > span.fas {
-  padding-right: 0.5rem;
 }

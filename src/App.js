@@ -18,48 +18,59 @@ export default class App extends Component {
       percentSpent: 0,
       sums: { income: 0, expenses: 0 },
       historyData: [],
+      isUnsaved: false,
     };
     this.addTransaction = this.addTransaction.bind(this);
     this.updateTransaction = this.updateTransaction.bind(this);
     this.deleteTransaction = this.deleteTransaction.bind(this);
     this.handleCheckChange = this.handleCheckChange.bind(this);
     this.handleCheckAll = this.handleCheckAll.bind(this);
-    this.handleNew = this.handleNew.bind(this);
-    this.handleLoad = this.handleLoad.bind(this);
-    this.handleSave = this.handleSave.bind(this);
+    this.handleLoadResponse = this.handleLoadResponse.bind(this);
+    this.handleSaveResponse = this.handleSaveResponse.bind(this);
+    this.sendNew = this.sendNew.bind(this);
+    this.sendLoad = this.sendLoad.bind(this);
+    this.sendSave = this.sendSave.bind(this);
     this.updateVis = this.updateVis.bind(this);
   }
-  updateVis() {
+  updateVis(unsaved = true) {
     const data = calcCatsAndSums(this.state.transactions);
     this.setState(() => ({
       categoryData: data.expenses,
       percentSpent: calcPcSpent(data.incomeSum, data.expenseSum),
       sums: { income: data.incomeSum, expenses: data.expenseSum },
       historyData: data.dateSums,
+      isUnsaved: unsaved,
     }));
   }
 
-  handleLoadResponse(data) {
-    console.log(`Got "${data}" from main process`);
-    this.setState(
-      () => ({ transactions: [...data] }),
-      () => {
-        this.updateVis();
-      }
-    );
+  handleLoadResponse(res) {
+    if (res.status === 200) {
+      this.setState(
+        () => ({ transactions: [...res.transactions], filename: res.filename }),
+        () => {
+          this.updateVis(false);
+        }
+      );
+    }
   }
-  handleSaveResponse(data) {
-    console.log(JSON.stringify(data));
+  handleSaveResponse(res) {
+    if (res.status === 200 && res.filename) {
+      this.setState(() => ({ filename: res.filename, isUnsaved: false }));
+    }
   }
 
-  handleNew() {
+  sendNew() {
     window.api.send("new", "create new please");
   }
-  handleLoad() {
+  sendLoad() {
     window.api.send("load");
   }
-  handleSave() {
-    window.api.send("save", { transactions: this.state.transactions });
+  sendSave(saveAs = false) {
+    if (saveAs) {
+      window.api.send("saveAs", { transactions: this.state.transactions });
+    } else {
+      window.api.send("save", { transactions: this.state.transactions });
+    }
   }
 
   handleCheckAll(e) {
@@ -154,7 +165,10 @@ export default class App extends Component {
       this.handleSaveResponse(data);
     });
     window.api.receive("reqSave", () => {
-      this.handleSave();
+      this.sendSave();
+    });
+    window.api.receive("reqSaveAs", () => {
+      this.sendSave(true);
     });
   }
 
@@ -162,9 +176,11 @@ export default class App extends Component {
     return (
       <div className="app">
         <AppMenu
-          onClickNew={this.handleNew}
-          onCickOpen={this.handleLoad}
-          onClickSave={this.handleSave}
+          onClickNew={this.sendNew}
+          onCickOpen={this.sendLoad}
+          onClickSave={this.sendSave}
+          unsaved={this.state.isUnsaved}
+          filename={this.state.filename}
         ></AppMenu>
         <div className="container">
           <div className="box stats">

@@ -16,30 +16,34 @@ const COLORS = [
 ];
 export default class CategoryPie extends Component {
   render() {
-    return (
-      <ResponsiveContainer width="90%" height="90%">
-        <PieChart>
-          <Pie
-            data={this.props.data}
-            dataKey="value"
-            nameKey="name"
-            cx="50%"
-            cy="50%"
-            innerRadius="50%"
-            outerRadius="75%"
-            paddingAngle={1}
-            labelLine={false}
-          >
-            <LabelList dataKey="name" position="outside" stroke="#292E21" />
-            {this.props.data.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
-            ))}
-          </Pie>
-        </PieChart>
-      </ResponsiveContainer>
-    );
+    if (this.props.data.length > 0) {
+      return (
+        <ResponsiveContainer width="90%" height="90%">
+          <PieChart>
+            <Pie
+              data={this.props.data}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="50%"
+              innerRadius="50%"
+              outerRadius="75%"
+              paddingAngle={1}
+              labelLine={false}
+            >
+              <LabelList dataKey="name" position="outside" stroke="#292E21" />
+              {this.props.data.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
+              ))}
+            </Pie>
+          </PieChart>
+        </ResponsiveContainer>
+      );
+    } else {
+      return <div>No transaction data</div>;
+    }
   }
 }

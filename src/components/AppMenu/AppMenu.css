@@ -1,4 +1,4 @@
-@import url(../colors.css);
+@import url(../../styles/colors.css);
 .appMenu > .bar {
   background-color: var(--primary);
   margin: 0;

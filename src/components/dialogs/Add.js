@@ -1,5 +1,5 @@
 import React from "react";
-import Dialog from "./Dialog.js";
+import Dialog from "./Dialog";
 
 class Add extends React.Component {
   constructor(props) {
@@ -19,7 +19,12 @@ class Add extends React.Component {
   }
   onAction(e) {
     e.preventDefault();
-    this.props.onAction([this.state.date, this.state.name, this.state.cat, this.state.amount]);
+    this.props.onAction([
+      this.state.date,
+      this.state.name,
+      this.state.cat,
+      this.state.amount,
+    ]);
   }
   onDateChange(e) {
     this.setState(() => ({

@@ -1,8 +1,8 @@
-import React from "react";
+import { PureComponent } from "react";
 import "./Transaction.css";
 import { moneyFmt } from "../../utils/formats";
 
-export default class TransactionRow extends React.Component {
+export default class TransactionRow extends PureComponent {
   constructor(props) {
     super(props);
     this.onCheckChange = this.onCheckChange.bind(this);
@@ -16,7 +16,7 @@ export default class TransactionRow extends React.Component {
   }
 
   render() {
-    const transaction = this.props.transaction;
+    const { transaction } = this.props;
     return (
       <tr>
         <td>

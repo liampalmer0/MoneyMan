@@ -1,4 +1,4 @@
-@import url(../../colors.css);
+@import url(../../styles/colors.css);
 .table-container {
   position: relative;
   background-color: var(--bkg);

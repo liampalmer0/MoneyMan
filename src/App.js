@@ -1,10 +1,10 @@
 import { Component } from "react";
 import "./App.css";
-import AppMenu from "./components/AppMenu";
-import Transactions from "./components/transaction/Transactions.js";
-import CategoryPie from "./components/vis/CategoryPie";
-import LineGraph from "./components/vis/LineGraph";
-import Stats from "./components/vis/Stats";
+import AppMenu from "./components/AppMenu/AppMenu";
+import Transactions from "./components/transaction/Transactions";
+import CategoryPie from "./components/visualizations/CategoryPie";
+import LineGraph from "./components/visualizations/LineGraph";
+import Stats from "./components/visualizations/Stats";
 import { calcPcSpent, calcCatsAndSums } from "./utils/calculator";
 
 export default class App extends Component {
@@ -120,9 +120,8 @@ export default class App extends Component {
     this.setState(
       (state) => {
         let transactions = state.transactions;
-        transactions[
-          transactions.findIndex((t) => t.id === transaction.id)
-        ] = transaction;
+        transactions[transactions.findIndex((t) => t.id === transaction.id)] =
+          transaction;
         return { transactions: transactions };
       },
       () => this.updateVis()

@@ -1,8 +1,8 @@
 import { Component } from "react";
 import TransactionTable from "./TransactionTable.js";
-import AddDialog from "../dialog/Add.js";
-import EditDialog from "../dialog/Edit.js";
-import DeleteDialog from "../dialog/Delete.js";
+import AddDialog from "../dialogs/Add";
+import EditDialog from "../dialogs/Edit";
+import DeleteDialog from "../dialogs/Delete";
 
 export default class Transactions extends Component {
   constructor(props) {
@@ -28,9 +28,10 @@ export default class Transactions extends Component {
       editIsOpen: !state.editIsOpen,
       deleteIsOpen: false,
       addIsOpen: false,
-      currentTransaction: this.props.transactions[
-        this.props.transactions.findIndex((t) => t.checked === true)
-      ],
+      currentTransaction:
+        this.props.transactions[
+          this.props.transactions.findIndex((t) => t.checked === true)
+        ],
     }));
   }
   handleClickDelete(e) {

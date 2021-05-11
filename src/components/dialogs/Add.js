@@ -19,12 +19,12 @@ class Add extends React.Component {
   }
   onAction(e) {
     e.preventDefault();
-    this.props.onAction([
+    this.props.onAction(
       this.state.date,
       this.state.name,
       this.state.cat,
-      this.state.amount,
-    ]);
+      this.state.amount
+    );
   }
   onDateChange(e) {
     this.setState(() => ({

@@ -20,7 +20,7 @@ class EditDialog extends React.Component {
   }
   onAction(e) {
     e.preventDefault();
-    this.props.onAction(e, {
+    this.props.onAction({
       id: this.props.transaction.id,
       name: this.state.name,
       date: this.state.date,

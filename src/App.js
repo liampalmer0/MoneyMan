@@ -1,6 +1,9 @@
 import { Component } from "react";
 import "./App.css";
 import AppMenu from "./components/AppMenu/AppMenu";
+import AddDialog from "./components/dialogs/Add";
+import DeleteDialog from "./components/dialogs/Delete";
+import EditDialog from "./components/dialogs/Edit";
 import Transactions from "./components/transaction/Transactions";
 import CategoryPie from "./components/visualizations/CategoryPie";
 import LineGraph from "./components/visualizations/LineGraph";
@@ -12,17 +15,24 @@ export default class App extends Component {
     super(props);
     this.state = {
       transactions: [],
+      currentTransaction: {},
       allChecked: false,
       checkCt: 0,
       categoryData: [],
+      historyData: [],
       percentSpent: 0,
       sums: { income: 0, expenses: 0 },
-      historyData: [],
       isUnsaved: false,
+      editIsOpen: false,
+      deleteIsOpen: false,
+      addIsOpen: false,
     };
     this.addTransaction = this.addTransaction.bind(this);
     this.updateTransaction = this.updateTransaction.bind(this);
     this.deleteTransaction = this.deleteTransaction.bind(this);
+    this.handleClickAdd = this.handleClickAdd.bind(this);
+    this.handleClickEdit = this.handleClickEdit.bind(this);
+    this.handleClickDelete = this.handleClickDelete.bind(this);
     this.handleCheckChange = this.handleCheckChange.bind(this);
     this.handleCheckAll = this.handleCheckAll.bind(this);
     this.handleLoadResponse = this.handleLoadResponse.bind(this);
@@ -98,9 +108,39 @@ export default class App extends Component {
     });
   }
 
+  handleClickEdit(e) {
+    e.preventDefault();
+    this.setState((state) => ({
+      editIsOpen: !state.editIsOpen,
+      deleteIsOpen: false,
+      addIsOpen: false,
+      currentTransaction:
+        this.state.transactions[
+          this.state.transactions.findIndex((t) => t.checked === true)
+        ],
+    }));
+  }
+  handleClickDelete(e) {
+    e.preventDefault();
+    this.setState((state) => ({
+      deleteIsOpen: !state.deleteIsOpen,
+      editIsOpen: false,
+      addIsOpen: false,
+    }));
+  }
+  handleClickAdd(e) {
+    e.preventDefault();
+    this.setState((state) => ({
+      addIsOpen: !state.addIsOpen,
+      editIsOpen: false,
+      deleteIsOpen: false,
+    }));
+  }
+
   addTransaction(date, name, cat, amount) {
     this.setState(
       (state) => ({
+        addIsOpen: false,
         transactions: [
           ...state.transactions,
           {
@@ -122,12 +162,13 @@ export default class App extends Component {
         let transactions = state.transactions;
         transactions[transactions.findIndex((t) => t.id === transaction.id)] =
           transaction;
-        return { transactions: transactions };
+        return { transactions: transactions, editIsOpen: false };
       },
       () => this.updateVis()
     );
   }
   deleteTransaction(e) {
+    e.preventDefault();
     if (this.state.allChecked) {
       this.setState(
         () => ({
@@ -149,7 +190,7 @@ export default class App extends Component {
               transactions.push(t);
             }
           });
-          return { transactions, checkCt: 0 };
+          return { transactions, checkCt: 0, deleteIsOpen: false };
         },
         () => this.updateVis()
       );
@@ -199,9 +240,9 @@ export default class App extends Component {
             <LineGraph data={this.state.historyData}></LineGraph>
           </div>
           <Transactions
-            onAddRow={this.addTransaction}
-            onUpdateRow={this.updateTransaction}
-            onDeleteRow={this.deleteTransaction}
+            onClickAdd={this.handleClickAdd}
+            onClickDelete={this.handleClickDelete}
+            onClickEdit={this.handleClickEdit}
             transactions={this.state.transactions}
             onCheckChange={this.handleCheckChange}
             checkedCount={this.state.checkCt}
@@ -209,6 +250,29 @@ export default class App extends Component {
             allChecked={this.state.allChecked}
           />
         </div>
+        {this.state.addIsOpen && (
+          <AddDialog
+            name="addDialog"
+            onClose={this.handleClickAdd}
+            onAction={this.addTransaction}
+            isOpen={this.state.addIsOpen}
+          ></AddDialog>
+        )}
+        {this.state.deleteIsOpen && (
+          <DeleteDialog
+            name="DeleteDialog"
+            onClose={this.handleClickDelete}
+            onAction={this.deleteTransaction}
+          ></DeleteDialog>
+        )}
+        {this.state.editIsOpen && (
+          <EditDialog
+            name="EditDialog"
+            onClose={this.handleClickEdit}
+            onAction={this.updateTransaction}
+            transaction={this.state.currentTransaction}
+          ></EditDialog>
+        )}
       </div>
     );
   }

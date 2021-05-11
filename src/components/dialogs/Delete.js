@@ -1,7 +1,7 @@
-import React from "react";
+import { PureComponent } from "react";
 import Dialog from "./Dialog.js";
 
-class DeleteDialog extends React.Component {
+export default class DeleteDialog extends PureComponent {
   render() {
     return (
       <Dialog
@@ -19,5 +19,3 @@ class DeleteDialog extends React.Component {
     );
   }
 }
-
-export default DeleteDialog;

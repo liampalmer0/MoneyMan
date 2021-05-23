@@ -6,9 +6,10 @@ import {
   YAxis,
   XAxis,
   ResponsiveContainer,
+  Tooltip,
 } from "recharts";
 
-export default class LineGraph extends Component {
+export default class HistoryGraph extends Component {
   render() {
     if (this.props.data.length > 0) {
       return (
@@ -21,6 +22,7 @@ export default class LineGraph extends Component {
             <CartesianGrid stroke="#ccc" />
             <XAxis dataKey="name" />
             <YAxis />
+            <Tooltip />
           </LineChart>
         </ResponsiveContainer>
       );

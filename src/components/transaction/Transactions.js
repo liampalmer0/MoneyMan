@@ -48,6 +48,11 @@ export default class Transactions extends Component {
           allChecked={this.props.allChecked}
           onCheckAll={this.onCheckAll}
         ></TransactionTable>
+        {this.props.transactions.length === 0 && (
+          <div>
+            <p className="empty-msg">No transactions</p>
+          </div>
+        )}
       </div>
     );
   }

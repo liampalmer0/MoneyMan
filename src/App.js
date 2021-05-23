@@ -6,7 +6,7 @@ import DeleteDialog from "./components/dialogs/Delete";
 import EditDialog from "./components/dialogs/Edit";
 import Transactions from "./components/transaction/Transactions";
 import CategoryPie from "./components/visualizations/CategoryPie";
-import LineGraph from "./components/visualizations/LineGraph";
+import HistoryGraph from "./components/visualizations/HistoryGraph";
 import Stats from "./components/visualizations/Stats";
 import { calcPcSpent, calcCatsAndSums } from "./utils/calculator";
 
@@ -42,6 +42,7 @@ export default class App extends Component {
     this.sendSave = this.sendSave.bind(this);
     this.updateVis = this.updateVis.bind(this);
   }
+
   updateVis(unsaved = true) {
     const data = calcCatsAndSums(this.state.transactions);
     this.setState(() => ({
@@ -237,7 +238,7 @@ export default class App extends Component {
           </div>
           <div className="box history">
             <h2>History</h2>
-            <LineGraph data={this.state.historyData}></LineGraph>
+            <HistoryGraph data={this.state.historyData}></HistoryGraph>
           </div>
           <Transactions
             onClickAdd={this.handleClickAdd}

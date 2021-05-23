@@ -1,5 +1,12 @@
 import { Component } from "react";
-import { ResponsiveContainer, PieChart, Pie, LabelList, Cell } from "recharts";
+import {
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  LabelList,
+  Cell,
+  Tooltip,
+} from "recharts";
 
 const COLORS = [
   "#e96655",
@@ -15,6 +22,21 @@ const COLORS = [
   "#2A9D8F",
 ];
 export default class CategoryPie extends Component {
+  renderTooltip(external) {
+    const data = external.payload[0] ? external.payload[0].payload : "";
+    return (
+      <span
+        style={{
+          borderBottom: `${data.fill} solid 2px`,
+          backgroundColor: "#fff",
+          padding: "0.35rem 0.25rem",
+          boxShadow: "0px 1px 3px rgba(0,0,0,0.1)",
+        }}
+      >
+        {data.name}: {Math.round(data.value * 100) / 100}
+      </span>
+    );
+  }
   render() {
     if (this.props.data.length > 0) {
       return (
@@ -39,11 +61,12 @@ export default class CategoryPie extends Component {
                 />
               ))}
             </Pie>
+            <Tooltip content={this.renderTooltip} />
           </PieChart>
         </ResponsiveContainer>
       );
     } else {
-      return <div>No transaction data</div>;
+      return <div>No expense data</div>;
     }
   }
 }

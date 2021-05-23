@@ -33,6 +33,9 @@
   background-color: var(--secondary-alt);
   transition: ease-out background-color 0.2s;
 }
+.empty-msg {
+  text-align: center;
+}
 .row-controls .btn-edit {
   border-radius: 5px 0 0 5px;
 }
